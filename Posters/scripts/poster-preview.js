@@ -378,6 +378,22 @@
         clone.style.margin = '0';
         clone.style.boxShadow = 'none';
 
+        // Inline <img> sources as data URIs so SVG foreignObject renders photos cleanly
+        const imgs = Array.from(clone.querySelectorAll('img'));
+        for (const clonedImg of imgs) {
+          const src = clonedImg.getAttribute('src');
+          if (!src || src.startsWith('data:')) continue;
+          const resp = await fetch(new URL(src, window.location.href).href);
+          const blob = await resp.blob();
+          const dataUrl = await new Promise((res, rej) => {
+            const fr = new FileReader();
+            fr.onload = () => res(fr.result);
+            fr.onerror = rej;
+            fr.readAsDataURL(blob);
+          });
+          clonedImg.setAttribute('src', dataUrl);
+        }
+
         const wrapper = document.createElement('div');
         wrapper.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
         wrapper.appendChild(clone);
@@ -426,7 +442,7 @@
     } catch (err) {
       console.warn('[PNG Export fallback]:', err);
       alert(
-        'Browser PNG export is blocked on file:// when slides embed local photos. Use "Download PDF", serve over localhost (npx serve .), or run:\nnode Posters/scripts/export-png.mjs <file>.html'
+        'Browser PNG export requires http:// (blocked on file:// by browser security). Use "Download PDF", start the preview server:\nnode Posters/scripts/serve.mjs\nor batch export PNGs directly:\nnode Posters/scripts/export-png.mjs <file>.html'
       );
     } finally {
       if (btn) btn.textContent = origText;
