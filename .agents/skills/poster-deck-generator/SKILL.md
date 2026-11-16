@@ -23,7 +23,9 @@ All shared assets, templates, and reference examples live inside the `Posters/` 
   - Include `<script src="scripts/poster-icons.js"></script>` before `poster-preview.js` so any `<span class="card-icon" data-icon="..."></span>` is hydrated into a crisp `36×36px` SVG.
   - Supports SF Symbol names (`doc.text`, `sparkles`, `checklist`, `bolt`, `square.stack.3d.up`, `chart.xyaxis.line`, `slider.horizontal.3`, `exclamationmark.triangle`, `checkmark.shield`, `checkmark.circle`, `square.grid.2x2`, `magnifyingglass`, `cpu`, `server.rack`, `arrow.up.right`, `scope`, `iphone`, `clock`, `book`, `lock`) as well as Lucide kebab-case names.
 - **Preview Scaler, Subtle Spacing Equalizer & Rule Validator:** `Posters/scripts/poster-preview.js`
-  - Scales slides to fit any browser window, distributes small residual vertical pixel differences (`±1px` to `±6px`) on 4K posters, runs `window.validatePosterRules()` on load, and provides **Download PDF** + **Hide/Menu** toolbar controls.
+  - Scales slides to fit any browser window, distributes small residual vertical pixel differences (`±1px` to `±6px`) on 4K posters, runs `window.validatePosterRules()` on load, and provides **Download PNG**, **Download PDF**, and **Hide/Menu** toolbar controls.
+- **Batch PNG Exporter:** `Posters/scripts/export-png.mjs`
+  - Exports every `.poster-canvas` slide in an HTML file to native-resolution PNGs (`Posters/exports/<name>/`): `node Posters/scripts/export-png.mjs Posters/<file>.html`
 - **Device-Frame Mockup Renderer (`pt-kdwiheldy` / Portfolio Framer):** `Posters/scripts/compose-device.mjs`
   - Renders crisp hardware-framed multi-device mockups (`dual-iphone`, `hero-iphone-portrait`, `iphone-masonry`, `mix-masonry-1`, `hero-ipad-landscape`, `hero-landscape`, etc.) from raw app screenshots into PNGs for `.media-frame`.
   - List available layouts: `node Posters/scripts/compose-device.mjs --list`

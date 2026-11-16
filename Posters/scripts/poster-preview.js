@@ -349,6 +349,90 @@
     return result;
   }
 
+  async function downloadPngs() {
+    const btn = document.getElementById('btn-download-png');
+    const origText = btn ? btn.textContent : 'Download PNG';
+    if (btn) btn.textContent = 'Exporting...';
+
+    try {
+      const canvases = Array.from(document.querySelectorAll('.poster-canvas'));
+      // Gather CSS rules from loaded stylesheets (skip external @import to avoid taint)
+      let cssText = '';
+      for (const sheet of Array.from(document.styleSheets)) {
+        try {
+          for (const rule of Array.from(sheet.cssRules || [])) {
+            if (rule.type !== CSSRule.IMPORT_RULE) {
+              cssText += rule.cssText + '\n';
+            }
+          }
+        } catch {
+          // Cross-origin stylesheet skipped
+        }
+      }
+
+      for (let i = 0; i < canvases.length; i++) {
+        const el = canvases[i];
+        const dims = getExpectedDimensions(el);
+        const clone = el.cloneNode(true);
+        clone.style.transform = 'none';
+        clone.style.margin = '0';
+        clone.style.boxShadow = 'none';
+
+        const wrapper = document.createElement('div');
+        wrapper.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+        wrapper.appendChild(clone);
+
+        const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="${dims.width}" height="${dims.height}">
+          <foreignObject width="100%" height="100%">
+            <style xmlns="http://www.w3.org/1999/xhtml">${cssText}</style>
+            ${new XMLSerializer().serializeToString(wrapper)}
+          </foreignObject>
+        </svg>`;
+
+        const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+        const img = new Image();
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = url;
+        });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = dims.width;
+        canvas.height = dims.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+
+        const pngBlob = await new Promise((resolve, reject) => {
+          try {
+            canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Canvas export failed'))), 'image/png');
+          } catch (err) {
+            reject(err);
+          }
+        });
+
+        const slug = (el.getAttribute('data-slide-name') || `slide-${i + 1}`)
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '');
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(pngBlob);
+        a.download = `${String(i + 1).padStart(2, '0')}-${slug}.png`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+      }
+    } catch (err) {
+      console.warn('[PNG Export fallback]:', err);
+      alert(
+        'Browser PNG export is blocked on file:// when slides embed local photos. Use "Download PDF", serve over localhost (npx serve .), or run:\nnode Posters/scripts/export-png.mjs <file>.html'
+      );
+    } finally {
+      if (btn) btn.textContent = origText;
+    }
+  }
+
   function downloadPosters() {
     const firstCanvas = document.querySelector('.poster-canvas');
     if (!firstCanvas) return;
@@ -374,6 +458,7 @@
       <span id="rule-validator-pill" class="preview-status-pill preview-status-pill--ok">Checking rules...</span>
       <button id="btn-toggle-scale" type="button">Scale: Fit</button>
       <button id="btn-toggle-grid" type="button">Inspect Grid</button>
+      <button id="btn-download-png" type="button">Download PNG</button>
       <button id="btn-download-posters" type="button">Download PDF</button>
       <button id="btn-toggle-toolbar" type="button" title="Collapse menu so it never blocks the slide">Hide</button>
     `;
@@ -384,6 +469,7 @@
       updateScale();
     });
 
+    document.getElementById('btn-download-png').addEventListener('click', downloadPngs);
     document.getElementById('btn-download-posters').addEventListener('click', downloadPosters);
 
     document.getElementById('btn-toggle-toolbar').addEventListener('click', (e) => {
