@@ -23,7 +23,12 @@ All shared assets, templates, and reference examples live inside the `Posters/` 
   - Include `<script src="scripts/poster-icons.js"></script>` before `poster-preview.js` so any `<span class="card-icon" data-icon="..."></span>` is hydrated into a crisp `36×36px` SVG.
   - Supports SF Symbol names (`doc.text`, `sparkles`, `checklist`, `bolt`, `square.stack.3d.up`, `chart.xyaxis.line`, `slider.horizontal.3`, `exclamationmark.triangle`, `checkmark.shield`, `checkmark.circle`, `square.grid.2x2`, `magnifyingglass`, `cpu`, `server.rack`, `arrow.up.right`, `scope`, `iphone`, `clock`, `book`, `lock`) as well as Lucide kebab-case names.
 - **Preview Scaler, Subtle Spacing Equalizer & Rule Validator:** `Posters/scripts/poster-preview.js`
-  - Scales `3840×2160` slides to fit any browser window, gently distributes small residual vertical pixel differences (`±1px` to `±6px`) so columns align flush at `1936px` without obvious gaps, and runs `window.validatePosterRules()` on load.
+  - Scales slides to fit any browser window, distributes small residual vertical pixel differences (`±1px` to `±6px`) on 4K posters, runs `window.validatePosterRules()` on load, and provides **Download PDF** + **Hide/Menu** toolbar controls.
+- **Device-Frame Mockup Renderer (`pt-kdwiheldy` / Portfolio Framer):** `Posters/scripts/compose-device.mjs`
+  - Renders crisp hardware-framed multi-device mockups (`dual-iphone`, `hero-iphone-portrait`, `iphone-masonry`, `mix-masonry-1`, `hero-ipad-landscape`, `hero-landscape`, etc.) from raw app screenshots into PNGs for `.media-frame`.
+  - List available layouts: `node Posters/scripts/compose-device.mjs --list`
+  - Render a spec to PNG: `node Posters/scripts/compose-device.mjs --spec spec.json --out Posters/assets/framed.png`
+  - *(Also works directly via the `portfolio-framer` MCP server at `pt-kdwiheldy/dist-server/mcp.mjs` using `list_layouts` + `compose`.)*
 - **Blank Starter Templates:**
   - `Posters/template-starter.html` — Standard 4K `16:9` (`3840×2160`) poster template.
   - `Posters/template-social-portrait.html` — Instagram &amp; LinkedIn `4:5` portrait carousel template (`2160×2700`, 4 layout options, `.poster-canvas--social-portrait`, `.poster-body--social-1` / `.poster-body--social-2`).

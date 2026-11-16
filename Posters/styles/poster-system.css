@@ -136,7 +136,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  padding: 24px;
+  padding: 24px 24px 104px;
   gap: 24px;
 }
 
@@ -1319,11 +1319,34 @@ body {
   outline: 2px dashed rgba(107, 199, 133, 0.75);
 }
 
+.preview-toolbar--collapsed {
+  padding: 6px 10px;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+}
+
+.preview-toolbar--collapsed:hover {
+  opacity: 1;
+}
+
+.preview-toolbar--collapsed > *:not(#btn-toggle-toolbar) {
+  display: none !important;
+}
+
 @media print {
   .preview-toolbar {
     display: none !important;
   }
   .poster-stage {
-    padding: 0;
+    padding: 0 !important;
+    gap: 0 !important;
+    background: #FFFFFF !important;
+  }
+  .poster-canvas {
+    transform: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    break-after: page;
+    page-break-after: always;
   }
 }

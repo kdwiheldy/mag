@@ -349,12 +349,24 @@
     return result;
   }
 
+  function downloadPosters() {
+    const firstCanvas = document.querySelector('.poster-canvas');
+    if (!firstCanvas) return;
+    const dims = getExpectedDimensions(firstCanvas);
+
+    let printStyle = document.getElementById('poster-print-page-style');
+    if (!printStyle) {
+      printStyle = document.createElement('style');
+      printStyle.id = 'poster-print-page-style';
+      document.head.appendChild(printStyle);
+    }
+    printStyle.textContent = `@page { size: ${dims.width}px ${dims.height}px; margin: 0; }`;
+
+    window.print();
+  }
+
   function mountToolbar() {
     if (document.querySelector('.preview-toolbar')) return;
-
-    const catalogHref = window.location.pathname.includes('/examples/')
-      ? '00-component-catalog.html'
-      : 'examples/00-component-catalog.html';
 
     const toolbar = document.createElement('div');
     toolbar.className = 'preview-toolbar';
@@ -362,13 +374,21 @@
       <span id="rule-validator-pill" class="preview-status-pill preview-status-pill--ok">Checking rules...</span>
       <button id="btn-toggle-scale" type="button">Scale: Fit</button>
       <button id="btn-toggle-grid" type="button">Inspect Grid</button>
-      <a href="${catalogHref}">Catalog & Index</a>
+      <button id="btn-download-posters" type="button">Download PDF</button>
+      <button id="btn-toggle-toolbar" type="button" title="Collapse menu so it never blocks the slide">Hide</button>
     `;
     document.body.appendChild(toolbar);
 
     document.getElementById('btn-toggle-scale').addEventListener('click', () => {
       fitMode = !fitMode;
       updateScale();
+    });
+
+    document.getElementById('btn-download-posters').addEventListener('click', downloadPosters);
+
+    document.getElementById('btn-toggle-toolbar').addEventListener('click', (e) => {
+      const collapsed = toolbar.classList.toggle('preview-toolbar--collapsed');
+      e.target.textContent = collapsed ? 'Menu' : 'Hide';
     });
 
     document.getElementById('btn-toggle-grid').addEventListener('click', (e) => {
