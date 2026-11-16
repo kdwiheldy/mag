@@ -355,6 +355,31 @@
     if (btn) btn.textContent = 'Exporting...';
 
     try {
+      // 1. Prefer unified server's Playwright PNG exporter when served over http://
+      if (window.location.protocol.startsWith('http')) {
+        try {
+          const apiResp = await fetch('/api/export-png', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pathname: window.location.pathname }),
+          });
+          if (apiResp.ok) {
+            const payload = await apiResp.json();
+            if (payload.ok && Array.isArray(payload.files)) {
+              for (const f of payload.files) {
+                const a = document.createElement('a');
+                a.href = f.dataUrl;
+                a.download = f.filename;
+                a.click();
+              }
+              return;
+            }
+          }
+        } catch {
+          // Fall through to SVG foreignObject export if not running serve.mjs
+        }
+      }
+
       const canvases = Array.from(document.querySelectorAll('.poster-canvas'));
       // Gather CSS rules from loaded stylesheets (skip external @import to avoid taint)
       let cssText = '';

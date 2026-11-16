@@ -1,5 +1,8 @@
 .DS_Store
 **/.DS_Store
 Posters/exports/
+Posters/framer/node_modules/
+Posters/framer/package-lock.json
+
 
 

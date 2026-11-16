@@ -13,7 +13,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '../..');
-const mcpEntry = path.join(repoRoot, 'pt-kdwiheldy/dist-server/mcp.mjs');
+const framerDir = path.join(repoRoot, 'Posters/framer');
+const mcpEntry = path.join(framerDir, 'mcp.mjs');
 
 function parseArgs(argv) {
   const args = {};
@@ -29,7 +30,8 @@ function parseArgs(argv) {
 async function callMcpTool(toolName, toolArgs) {
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [mcpEntry], {
-      cwd: path.join(repoRoot, 'pt-kdwiheldy'),
+      cwd: framerDir,
+      env: { ...process.env, FRAMER_DIST: path.join(framerDir, 'dist') },
       stdio: ['pipe', 'pipe', 'pipe'],
     });
 
@@ -106,3 +108,4 @@ if (args.list) {
   console.error('Usage:\n  node Posters/scripts/compose-device.mjs --list\n  node Posters/scripts/compose-device.mjs --spec <spec.json> --out <out.png>');
   process.exit(1);
 }
+
