@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example 02 — ML Data Science, Feature Pipeline &amp; Time-Series Charts (Archetype A)</title>
+  <link rel="stylesheet" href="../styles/poster-system.css" />
+</head>
+<body>
+  <main class="poster-stage">
+    <!--
+      EXAMPLE 02: ML DATA SCIENCE, FEATURE PIPELINE & TIME-SERIES CHARTS
+      Modeled on Slide 60 (244:13)
+      Grid Archetype A: 951px | 48px | 1349px | 48px | 1348px = 3744px
+    -->
+    <section class="poster-canvas" data-slide-name="02: ML & Data Visualization">
+
+      <!-- TOP HEADER BAR (3744px × 80px) — Title + Subtitle on BOTH Left and Right -->
+      <header class="poster-header">
+        <div class="poster-brand">
+          <div class="poster-brand-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" rx="22" fill="#242529"/>
+              <path d="M20 52L35 34L45 44L60 24" stroke="#F36E25" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="60" cy="24" r="6" fill="#6BC785"/>
+            </svg>
+          </div>
+          <div class="poster-brand-text">
+            <h1 class="poster-brand-title">Optense — Industry Control System (ICS)</h1>
+            <p class="poster-brand-subtitle">Leveraging Tabular Data for Finding Anomalies Within Industrial Machines</p>
+          </div>
+        </div>
+        <div class="poster-header-meta">
+          <p class="poster-meta-title"><span class="accent">Kemal</span> Dwi Heldy Muhammad</p>
+          <p class="poster-meta-subtitle">Apple Developer Institute for AIML</p>
+        </div>
+      </header>
+
+      <!-- 3-COLUMN BODY (3744px × 1936px) -->
+      <div class="poster-body poster-body--archetype-a">
+
+        <!-- ==================== COLUMN 1 (951px) ==================== -->
+        <div class="poster-col">
+          <!-- Card 1: Abstract (Colored Primary Card with Icon + Title + Inner White .subcard) -->
+          <article class="card card--primary">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="5" width="26" height="26" rx="7" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M11 14H25M11 22H19" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Abstract</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                A single machine could have multiple sensors, relays, actuators, and other instruments that work together to achieve a desired target. Usually, readings from each of these instruments are logged to evaluate how well the machine is performing. Additionally, these logs can be used to <strong>detect anomalies by identifying unusual patterns</strong>, which may indicate that something is going wrong.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 2: Objectives (.card--fill) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                  <circle cx="18" cy="18" r="5" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Objectives</h2>
+            </div>
+            <p class="prose">
+              ICS is an established system capable of integrating any instrument that uses the Modbus communication protocol. Architecturally, ICS consists of two layers: the <code>controller</code> and the <code>server</code>. The <code>controller</code> layer acts as the core of the system, responsible for <strong>controlling and monitoring all connected instruments</strong>, while the <code>server</code> layer enables <strong>centralized monitoring of multiple</strong> <code>controllers</code> across a facility. Given the diversity of supported instruments, two key challenges must be addressed:
+            </p>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Training must be done on demand</strong> when enough readings have been logged, adapting directly to each machine's operating baseline.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Each model must be light enough</strong> for an edge device to concurrently run instances of inference in real time to detect anomalies across multiple instruments simultaneously.
+                </p>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Card 3: Warning / Note Card (#FBC966 — Icon + Title + Inner White .subcard) -->
+          <article class="card card--warning">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M18 11V19M18 24.5V25" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Note</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                Before implementing it on the <code>controller</code>, creating a proof-of-concept on the <code>server</code> could <strong>save a lot of time and effort</strong> before changing the <code>controller</code>’s architecture.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 2 (1349px) ==================== -->
+        <div class="poster-col">
+          <!-- Single Full-Height Card: Creating the Proof-of-Concept (Exact Slide 60 Col 2 Pattern) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 26L14 16L21 21L30 9" stroke="#242529" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Creating the Proof-of-Concept</h2>
+            </div>
+
+            <p class="prose">
+              For creating a quick and effortless anomaly detector, building it as an iPad application is the perfect choice for two reasons: <strong>Create ML</strong> and <strong>Core ML</strong>. <strong>Create ML</strong> can train machine learning models and output a compiled model that <strong>Core ML</strong> runs natively.
+            </p>
+
+            <!-- Time-Series Anomaly Chart Sub-Card -->
+            <div class="chart-card chart-card--fill">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">27.4°C</h3>
+                  <p class="subcard-subtitle">Reading #15 — Flagged Anomaly</p>
+                </div>
+                <span class="badge badge--error">chiller: OFF</span>
+              </div>
+
+              <div class="chart-svg-container">
+                <svg viewBox="0 0 1160 240" preserveAspectRatio="none">
+                  <line x1="65" y1="30" x2="1140" y2="30" stroke="#EAEAEA" stroke-width="1.5"/>
+                  <line x1="65" y1="100" x2="1140" y2="100" stroke="#EAEAEA" stroke-width="1.5"/>
+                  <line x1="65" y1="170" x2="1140" y2="170" stroke="#EAEAEA" stroke-width="1.5"/>
+
+                  <text x="4" y="38" class="chart-axis-label">28°C</text>
+                  <text x="4" y="108" class="chart-axis-label">24°C</text>
+                  <text x="4" y="178" class="chart-axis-label">20°C</text>
+
+                  <line x1="65" y1="72" x2="1140" y2="72" stroke="#EAEAEA" stroke-width="6" stroke-dasharray="14 12"/>
+                  <path d="M65 158 C 220 150, 380 164, 540 152 C 700 144, 840 148, 960 110 C 1020 75, 1080 35, 1120 24" fill="none" stroke="#F36E25" stroke-width="6" stroke-linecap="round"/>
+                  <circle cx="1120" cy="24" r="10" fill="#F36E25"/>
+                  <circle cx="1120" cy="24" r="20" fill="rgba(243, 110, 37, 0.2)"/>
+                </svg>
+              </div>
+            </div>
+
+            <p class="prose">
+              A single reading carries no memory. To judge whether a <code>27.4°C</code> is suspicious, the model needs to know <strong>where the signal has been</strong>, <strong>how stable it was</strong>, <strong>how fast it moved</strong>, and <strong>what time of day it is</strong>. These questions can be derived into four features:
+            </p>
+
+            <!-- 2x2 Feature Engineering Sub-Cards (Exact Slide 60 Pattern with 32px Chips) -->
+            <div class="inner-grid-2">
+              <div class="subcard subcard--lg">
+                <div class="subcard-header">
+                  <div class="subcard-title-stack">
+                    <h3 class="card-title">Where has it been?</h3>
+                    <p class="subcard-subtitle subcard-subtitle--italic">“What’s the recent baseline?”</p>
+                  </div>
+                  <span class="badge">mean</span>
+                </div>
+                <p class="prose">
+                  <strong>Average of the last 10 readings</strong>. Gives the model a reference point for what "normal" looks like right now, in the current operating state.
+                </p>
+              </div>
+
+              <div class="subcard subcard--lg">
+                <div class="subcard-header">
+                  <div class="subcard-title-stack">
+                    <h3 class="card-title">How much should it move?</h3>
+                    <p class="subcard-subtitle subcard-subtitle--italic">“Stable or volatile movement?”</p>
+                  </div>
+                  <span class="badge">std</span>
+                </div>
+                <p class="prose">
+                  <strong>Standard deviation of the same window</strong>. A tighter <code>std</code> means the chiller is steady; a wider <code>std</code> means it is actively transitioning.
+                </p>
+              </div>
+
+              <div class="subcard subcard--lg">
+                <div class="subcard-header">
+                  <div class="subcard-title-stack">
+                    <h3 class="card-title">How fast is it moving?</h3>
+                    <p class="subcard-subtitle subcard-subtitle--italic">“Gradual shift or sudden spike?”</p>
+                  </div>
+                  <span class="badge">delta</span>
+                </div>
+                <p class="prose">
+                  <strong>Difference from the previous reading</strong>. Legitimate changes tend to be gradual. Refrigerant leaks and sensor failures are sudden.
+                </p>
+              </div>
+
+              <div class="subcard subcard--lg">
+                <div class="subcard-header">
+                  <div class="subcard-title-stack">
+                    <h3 class="card-title">What mode should it be in?</h3>
+                    <p class="subcard-subtitle subcard-subtitle--italic">“Normal for this time of day?”</p>
+                  </div>
+                  <span class="badge">hour</span>
+                </div>
+                <p class="prose">
+                  <strong>Machines follow human schedules</strong>. A chiller runs harder during production hours and idles at night as the model learns its cycle.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 3 (1348px) ==================== -->
+        <div class="poster-col">
+          <!-- Card 1: On-Device Training and Inference -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="6" width="24" height="24" rx="6" stroke="#242529" stroke-width="3.5"/>
+                  <rect x="13" y="13" width="10" height="10" rx="2" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">On-Device Training and Inference</h2>
+            </div>
+
+            <p class="prose">
+              A gradient boosted tree regressor was chosen for two reasons. First, it <strong>handles the non-linear relationships between instrument features without requiring large datasets</strong>, which is critical when training happens on demand from a limited reading history. Second, it <strong>runs entirely on CPU</strong>, making it <strong>suitable for edge hardware</strong> without a dedicated AI accelerator.
+            </p>
+
+            <p class="prose">
+              <strong>Create ML</strong> handles the training side. Given a set of labeled readings, it fits a boosted tree regressor (<code>MLBoostedTreeRegressor</code>) and writes the result as a compiled <code>.mlmodel</code> file. <strong>The entire process happens on-device</strong>, with no server or cloud dependency.
+            </p>
+
+            <p class="prose">
+              <strong>Core ML</strong> handles the inference side. It <strong>loads the compiled model and runs predictions in real time</strong>, returning a single float per reading. <strong>The anomaly score is then computed as the absolute difference between that prediction and the actual sensor value</strong>.
+            </p>
+
+            <p class="prose">
+              The <strong>threshold is set at 3 times the training RMSE</strong>, meaning the model tolerates normal variation but flags anything significantly outside it.
+            </p>
+          </article>
+
+          <!-- Card 2: Annotated iPad PoC Media Frame (.media-frame--fill locks Column 3 flush at 1936px) -->
+          <article class="media-frame media-frame--fill">
+            <div class="media-stage">
+              <svg width="100%" height="100%" viewBox="0 0 1200 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="120" y="60" width="960" height="500" rx="32" fill="#232730" stroke="#3E4452" stroke-width="4"/>
+                <rect x="160" y="100" width="880" height="420" rx="20" fill="#FFFFFF"/>
+                <line x1="220" y1="220" x2="980" y2="220" stroke="#EAEAEA" stroke-width="2"/>
+                <line x1="220" y1="320" x2="980" y2="320" stroke="#EAEAEA" stroke-width="2"/>
+                <line x1="220" y1="420" x2="980" y2="420" stroke="#EAEAEA" stroke-width="2"/>
+                <path d="M220 390 C 380 370, 520 385, 680 360 C 760 340, 820 170, 880 155 C 930 150, 950 350, 980 365" fill="none" stroke="#F36E25" stroke-width="7" stroke-linecap="round"/>
+                <circle cx="880" cy="155" r="12" fill="#FF584D"/>
+              </svg>
+              <div class="media-annotation" style="top: 40px; right: 48px;">
+                <span class="media-annotation-dot"></span>
+                <span>iPadOS Create ML &amp; Core ML PoC Inspector</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../scripts/poster-preview.js"></script>
+</body>
+</html>

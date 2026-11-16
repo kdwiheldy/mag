@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example 01 — System Overview, Architecture &amp; KPI Scale (Archetype A)</title>
+  <link rel="stylesheet" href="../styles/poster-system.css" />
+</head>
+<body>
+  <main class="poster-stage">
+    <!--
+      EXAMPLE 01: SYSTEM OVERVIEW, ARCHITECTURE & KPI SCALE
+      Modeled on Slide 61 (244:487)
+      Grid Archetype A: 951px | 48px | 1349px | 48px | 1348px = 3744px
+    -->
+    <section class="poster-canvas" data-slide-name="01: System Overview & Architecture">
+
+      <!-- TOP HEADER BAR (3744px × 80px) — Title + Subtitle on BOTH Left and Right -->
+      <header class="poster-header">
+        <div class="poster-brand">
+          <div class="poster-brand-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" rx="22" fill="#242529"/>
+              <path d="M24 40C24 31.1634 31.1634 24 40 24C48.8366 24 56 31.1634 56 40C56 48.8366 48.8366 56 40 56" stroke="#F36E25" stroke-width="7" stroke-linecap="round"/>
+              <circle cx="40" cy="40" r="7" fill="#F36E25"/>
+            </svg>
+          </div>
+          <div class="poster-brand-text">
+            <h1 class="poster-brand-title">Optense</h1>
+            <p class="poster-brand-subtitle">Industry Control System — ICS</p>
+          </div>
+        </div>
+        <div class="poster-header-meta">
+          <p class="poster-meta-title">Apple Developer Academy <span class="accent">Alumni</span></p>
+          <p class="poster-meta-subtitle">Kemal Dwi Heldy Muhammad — Cohort 2024</p>
+        </div>
+      </header>
+
+      <!-- 3-COLUMN BODY (3744px × 1936px) -->
+      <div class="poster-body poster-body--archetype-a">
+
+        <!-- ==================== COLUMN 1 (951px) ==================== -->
+        <div class="poster-col">
+          <!-- Card 1: The Monitoring Gap (Icon + Title, no small subtitle) -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                  <circle cx="18" cy="18" r="6" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">The Monitoring Gap</h2>
+            </div>
+            <p class="prose">
+              No team of technicians can watch every machine, every sensor, every reading, all at once. A PLC can trigger an alarm when a value crosses a fixed limit, but <strong>it can't learn</strong>, <strong>it can't adapt</strong>, and <strong>it can't be extended without rewiring</strong>. What factories need is <strong>something that adapts to their machines</strong>, not the other way around. That's what ICS is built to be.
+            </p>
+          </article>
+
+          <!-- Card 2: Colored Primary Card (Icon + Title + Inner White .subcard) -->
+          <article class="card card--primary">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="28" height="28" rx="8" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M12 18H24M18 12V24" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">What is ICS (Industry Control System)?</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                <strong>ICS connects to industrial machines</strong>, reads their sensors in real time, and acts on what it finds. <strong>ICS</strong> gives factory operators <strong>full visibility over their machines</strong> and full control over how the system responds. It <strong>monitors</strong>, <strong>automates</strong>, and <strong>can be extended with an AI layer</strong>. <strong>All from a single platform</strong> running entirely on-premise.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 3: Key Capabilities (.card--fill locks flush at 1936px with subtle eye-balled bullet gaps) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 10H30M6 18H30M6 26H20" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="28" cy="26" r="4" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Key Capabilities</h2>
+            </div>
+            <p class="prose">
+              <strong>ICS delivers the same core functionality as a PLC</strong>, where condition monitoring and automated responses can be done without dedicated hardware. Because <strong>the logic lives in software</strong>, rules can be updated, extended, or <strong>reconfigured at any time without physical intervention</strong>.
+            </p>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Connects to any industrial machine</strong> without replacing existing infrastructure.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Runs entirely on-premise</strong>, no cloud dependency, no data leaving the facility.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Triggers automated responses</strong> the moment a condition is met.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Scales</strong> from a single machine <strong>to an entire facility from one interface</strong>.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Extends with an</strong> <code>AI processor</code> for pattern recognition and predictive capabilities.
+                </p>
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 2 (1349px) ==================== -->
+        <div class="poster-col">
+          <!-- Card 1: Example Use-case (Exact Slide 61 Structure) -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 4L8 20H18L16 32L28 16H18L20 4Z" stroke="#242529" stroke-width="3.2" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Example Use-case</h2>
+            </div>
+
+            <p class="prose">
+              At one manufacturing facility, three chillers keeping a production line cold ran on a fixed daily schedule, <strong>wasting energy</strong> every hour the reservoir was already at temperature. <strong>ICS replaced the timer with a set of simple rules</strong>, where <strong>each chiller now responds directly to the reservoir's temperature</strong>.
+            </p>
+
+            <!-- Function 1 Subcard -->
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <h3 class="card-title">Turn off function</h3>
+                <p class="subcard-subtitle">where <code>A</code> is <code>-11</code>, <code>-13</code>, <code>-15</code> respectively for chiller #1, #2, and #3</p>
+              </div>
+              <div class="arch-connector-row">
+                <span class="badge">temp &lt; A°C</span>
+                <div class="arch-connector-line"></div>
+                <span class="badge badge--error">chiller: OFF</span>
+              </div>
+            </div>
+
+            <!-- Function 2 Subcard -->
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <h3 class="card-title">Turn on function</h3>
+                <p class="subcard-subtitle">where <code>B</code> is <code>-10</code>, <code>-12</code>, <code>-14</code> respectively for chiller #1, #2, and #3</p>
+              </div>
+              <div class="arch-connector-row">
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <span class="badge">temp &gt; B°C</span>
+                  <span class="badge badge--neutral">AND</span>
+                  <span class="badge">chiller = OFF</span>
+                </div>
+                <div class="arch-connector-line"></div>
+                <span class="badge badge--success">chiller: ON</span>
+              </div>
+            </div>
+
+            <!-- Dual KPI Stat Cards inside Example Use-case -->
+            <div class="inner-grid-2">
+              <div class="stat-card">
+                <div class="subcard-header">
+                  <h3 class="card-title">Power Usage</h3>
+                  <span class="card-icon">
+                    <svg viewBox="0 0 36 36" fill="none"><path d="M18 6V30M18 30L10 22M18 30L26 22" stroke="#F36E25" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <div>
+                  <p class="stat-value">40% less</p>
+                  <p class="stat-label">vs traditional scheduling</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="subcard-header">
+                  <h3 class="card-title">Chiller’s Life expectancy</h3>
+                  <span class="card-icon">
+                    <svg viewBox="0 0 36 36" fill="none"><path d="M18 30V6M18 6L10 14M18 6L26 14" stroke="#F36E25" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <div>
+                  <p class="stat-value">+1.5 years</p>
+                  <p class="stat-label">due to less wear</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Architecture (Nested Dashed Canvas) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="6" width="11" height="11" rx="3" stroke="#242529" stroke-width="3"/>
+                  <rect x="21" y="6" width="11" height="11" rx="3" stroke="#242529" stroke-width="3"/>
+                  <rect x="12.5" y="21" width="11" height="11" rx="3" stroke="#F36E25" stroke-width="3"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Architecture</h2>
+            </div>
+
+            <div class="arch-canvas arch-canvas--fill">
+              <div class="arch-zone">
+                <div class="arch-zone-header">
+                  <span class="arch-zone-title">Field Instruments &amp; Sensors</span>
+                  <span class="diagram-chip diagram-chip--neutral">Modbus RTU / RS-485</span>
+                </div>
+                <div class="arch-node-grid">
+                  <div class="arch-node"><span class="arch-node-label">Temperature Probe</span></div>
+                  <div class="arch-node"><span class="arch-node-label">Humidity Sensor</span></div>
+                  <div class="arch-node"><span class="arch-node-label">Chiller Relay</span></div>
+                  <div class="arch-node"><span class="arch-node-label">Power Meter</span></div>
+                </div>
+              </div>
+
+              <div class="arch-connector-row">
+                <div class="arch-connector-line"></div>
+                <span class="diagram-chip">Deterministic Polling &amp; Actuation</span>
+                <div class="arch-connector-line"></div>
+              </div>
+
+              <div class="arch-zone arch-zone--accent">
+                <div class="arch-zone-header">
+                  <span class="arch-zone-title">Optense Controller &amp; AI Processor</span>
+                  <span class="diagram-chip">On-Premise Edge</span>
+                </div>
+                <div class="arch-node-grid">
+                  <div class="arch-node"><span class="arch-node-label">Rule &amp; State Engine</span></div>
+                  <div class="arch-node"><span class="arch-node-label">AI Processor (.mlmodel)</span></div>
+                  <div class="arch-node"><span class="arch-node-label">Central Server Sync</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 3 (1348px) ==================== -->
+        <div class="poster-col">
+          <!-- Card 1: Why It Matters (Matches Slide 61 3-card Column 3 layout) -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 4L22 14L32 18L22 22L18 32L14 22L4 18L14 14L18 4Z" stroke="#242529" stroke-width="3.2" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Why It Matters</h2>
+            </div>
+            <p class="prose">
+              Industrial facilities rarely replace working machinery just to gain modern telemetry. <strong>ICS bridges legacy equipment and intelligent automation</strong> without halting production lines, requiring cloud subscriptions, or exposing operational data outside the plant.
+            </p>
+          </article>
+
+          <!-- Card 2: Current Scale -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 28V16M14 28V10M22 28V18M30 28V8" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Current Scale</h2>
+            </div>
+            <p class="prose">
+              Deployed across active manufacturing facilities, <strong>ICS runs 24/7 on-premise</strong>, logging high-frequency instrument telemetry and executing automated rules with zero cloud latency.
+            </p>
+            <div class="inner-grid-2">
+              <div class="stat-card">
+                <div class="subcard-header">
+                  <h3 class="card-title">Daily Readings</h3>
+                  <span class="card-icon">
+                    <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="12" stroke="#F36E25" stroke-width="3.5"/></svg>
+                  </span>
+                </div>
+                <div>
+                  <p class="stat-value">4.2M+</p>
+                  <p class="stat-label">logged per facility</p>
+                </div>
+              </div>
+              <div class="stat-card stat-card--solid">
+                <div class="subcard-header">
+                  <h3 class="card-title">On-Premise Uptime</h3>
+                  <span class="card-icon">
+                    <svg viewBox="0 0 36 36" fill="none"><path d="M8 18L15 25L28 11" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <div>
+                  <p class="stat-value">99.98%</p>
+                  <p class="stat-label">zero cloud dependency</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: What's Next? (Fills remaining height to lock flush at 1936px) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 18H28M28 18L20 10M28 18L20 26" stroke="#242529" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">What’s Next?</h2>
+            </div>
+            <p class="prose">
+              While rule-based automation eliminates schedule waste, fixed thresholds still cannot catch gradual mechanical wear before a limit is crossed. <strong>Extending ICS with on-device intelligence</strong> unlocks the next tier of reliability:
+            </p>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>On-Demand Anomaly Detection</strong> — Train per-instrument <code>MLBoostedTreeRegressor</code> models directly from logged tabular history to flag abnormal patterns automatically before fixed alarms trip.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Multi-Zone Thermal Coordination</strong> — Coordinate adjacent chillers and air handlers across production bays so peak electrical draw never overlaps during shift transitions.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Automated Sensor Drift Detection</strong> — Cross-correlate neighboring probes in the same thermal reservoir to isolate calibration drift and aging hardware before false alarms trigger.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Constrained On-Device AI Assistant</strong> — Let operators inspect live telemetry and configure controller rules through natural language on <code>iPadOS</code>.
+                </p>
+              </li>
+            </ul>
+          </article>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../scripts/poster-preview.js"></script>
+</body>
+</html>

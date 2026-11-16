@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>00 — Master Component Catalog &amp; Example Index (4K 16:9)</title>
+  <link rel="stylesheet" href="../styles/poster-system.css" />
+  <style>
+    .catalog-nav {
+      width: 100%;
+      max-width: 1480px;
+      background: #202227;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: #FFFFFF;
+    }
+    .catalog-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .catalog-nav-links a {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.15s ease;
+    }
+    .catalog-nav-links a:hover,
+    .catalog-nav-links a.active {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    @media print {
+      .catalog-nav {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster-stage">
+
+    <!-- Quick Navigation Bar Across All Examples -->
+    <nav class="catalog-nav">
+      <div style="font-weight: 600; font-size: 15px;">
+        Poster Deck Design System — Interactive Catalog &amp; Examples
+      </div>
+      <div class="catalog-nav-links">
+        <a href="00-component-catalog.html" class="active">00 Catalog</a>
+        <a href="01-system-overview-and-architecture.html">01 System &amp; Arch</a>
+        <a href="02-ml-data-science-and-charts.html">02 ML &amp; SVG Charts</a>
+        <a href="03-pipeline-and-json-contracts.html">03 Pipeline &amp; JSON (Pezen)</a>
+        <a href="04-wide-span-and-media-frames.html">04 Wide Span &amp; Media Frames</a>
+        <a href="05-device-showcase-and-evaluation.html">05 Device Showcase</a>
+        <a href="06-flexible-4-column-marketing-matrix.html">06 Flexible 4-Col Matrix</a>
+        <a href="../template-starter.html">Starter Template</a>
+      </div>
+    </nav>
+
+    <!--
+      MASTER COMPONENT CATALOG SLIDE (3840px × 2160px)
+      Displays every atomic and composite building block on a valid 3-column 4K canvas.
+    -->
+    <section class="poster-canvas" data-slide-name="00: Master Component Catalog">
+
+      <!-- TOP HEADER BAR (3744px × 80px) — Title + Subtitle on BOTH Left and Right -->
+      <header class="poster-header">
+        <div class="poster-brand">
+          <div class="poster-brand-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" rx="22" fill="#242529"/>
+              <rect x="22" y="22" width="36" height="36" rx="10" fill="#F36E25"/>
+            </svg>
+          </div>
+          <div class="poster-brand-text">
+            <h1 class="poster-brand-title">Portfolio &amp; Marketing Poster System</h1>
+            <p class="poster-brand-subtitle">Master Component Catalog &amp; Visual Design Specification</p>
+          </div>
+        </div>
+        <div class="poster-header-meta">
+          <p class="poster-meta-title"><span class="accent">Kemal</span> Dwi Heldy Muhammad</p>
+          <p class="poster-meta-subtitle">4K 16:9 Grid (3840 × 2160) — Usable Area 3744 × 1936</p>
+        </div>
+      </header>
+
+      <!-- 3 EQUAL COLUMNS FOR CATALOG SHOWCASE (1216 + 48 + 1216 + 48 + 1216 = 3744px) -->
+      <div class="poster-body poster-body--equal-3">
+
+        <!-- ==================== COLUMN 1: CARDS, TYPOGRAPHY, BULLETS, CHIPS ==================== -->
+        <div class="poster-col">
+
+          <!-- 1A: Solid Primary Accent Card (Always uses 36x36 Icon + Title + Inner White .subcard) -->
+          <article class="card card--primary">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="28" height="28" rx="8" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M12 18H24M18 12V24" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">1. Primary Colored Card (.card--primary)</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                Colored cards always place a <code>36×36px</code> icon beside a <strong>dark #242529 title</strong> and wrap their body inside an <strong>inner white card</strong> (<code>.subcard</code>, <code>rounded: 36px</code>, <code>p: 24px</code>) so 3-layer inline emphasis remains crisp.
+              </p>
+            </div>
+          </article>
+
+          <!-- 1B: Standard Card with 3-Layer Prose, Two-Tone Bullets, & 32px Bordered Chips -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 10H30M6 18H30M6 26H20" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="28" cy="26" r="4" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">2. Typography, Bullets &amp; 32px Chips</h2>
+            </div>
+
+            <p class="prose">
+              Every Level 1 <code>.card</code> starts directly with a <code>32px</code> prose paragraph or inner sub-card below the icon-and-title header—<strong>never a small subtitle under the main card title</strong>, keeping the top-level visual hierarchy unmistakably clear across every column.
+            </p>
+
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>3-Layer Inline Emphasis</strong> — Combines regular <code>32px</code> prose with <strong>bold takeaway phrases</strong> and inline <code>Geist Mono SemiBold</code> technical identifiers in <code>var(--primary)</code> so complex engineering points scan effortlessly.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Two-Tone Square Bullets</strong> — <code>36×36px</code> outer square (<code>#242529</code>, <code>rounded: 12px</code>) with centered <code>18×18px</code> inner square (<code>var(--primary)</code>, <code>rounded: 6px</code>) and <code>24px</code> horizontal gap.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Content-Filled Cards &amp; Subtle Spacing</strong> — Every card writes complete sentences to fill its vertical budget naturally, while bullet and card gaps nudge by only a few pixels (<code>±1px–6px</code>) to align flush at <code>1936px</code>.
+                </p>
+              </li>
+            </ul>
+
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Level 2 Sub-Card Header</h3>
+                  <p class="subcard-subtitle subcard-subtitle--italic">“Subtitles (24px #606363) only appear inside inner sub-cards”</p>
+                </div>
+                <span class="badge">mean</span>
+              </div>
+              <p class="prose">
+                Bordered <code>32px</code> chips (<code>height: 42px</code>, <code>2px solid</code>, <code>10% tint</code>) encode mathematical operators, logical gates, and live hardware states inside inner white sub-cards:
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+                <span class="badge">temp &lt; A°C</span>
+                <span class="badge badge--success">chiller: ON</span>
+                <span class="badge badge--error">chiller: OFF</span>
+                <span class="badge badge--neutral">AND</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 1C: Warning Callout Card (Always wraps body in an inner white .subcard) -->
+          <article class="card card--warning">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M18 11V19M18 24.5V25" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">3. Warning Callout (.card--warning)</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                Highlights important engineering notes in <code>#FBC966</code> while keeping the body text inside a clean <strong>inner white card</strong> (<code>#FFFFFF</code>).
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 2: ARCHITECTURE, CHARTS & JSON CONTRACTS ==================== -->
+        <div class="poster-col">
+
+          <!-- 2A: Architecture Diagram Canvas -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="6" width="11" height="11" rx="3" stroke="#242529" stroke-width="3"/>
+                  <rect x="21" y="6" width="11" height="11" rx="3" stroke="#242529" stroke-width="3"/>
+                  <rect x="12.5" y="21" width="11" height="11" rx="3" stroke="#F36E25" stroke-width="3"/>
+                </svg>
+              </span>
+              <h2 class="card-title">4. Dashed Architecture Canvas (.arch-canvas)</h2>
+            </div>
+
+            <div class="arch-canvas">
+              <div class="arch-zone arch-zone--accent">
+                <div class="arch-zone-header">
+                  <span class="arch-zone-title">AI Pipeline &amp; Controller Layer</span>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <span class="diagram-chip diagram-chip--tint">on-device</span>
+                    <span class="kw-dark" style="font-size: 20px;">or</span>
+                    <span class="diagram-chip diagram-chip--tint">cloud</span>
+                  </div>
+                </div>
+                <div class="arch-node-grid">
+                  <div class="arch-node"><span class="arch-node-label">Telemetry Bus</span></div>
+                  <div class="arch-node"><span class="arch-node-label">AI Processor</span></div>
+                  <div class="arch-node"><span class="arch-node-label">Safety Relay</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2B: SVG Time-Series Chart -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 27L13 17L20 22L31 9" stroke="#242529" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="31" cy="9" r="4" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">5. Time-Series Chart Sub-Card (.chart-card)</h2>
+            </div>
+
+            <div class="chart-card">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Reservoir Temperature Forecast</h3>
+                  <p class="subcard-subtitle">Reading #15 flagged above 3× RMSE threshold</p>
+                </div>
+                <span class="badge">27.4°C</span>
+              </div>
+              <div class="chart-svg-container" style="min-height: 184px;">
+                <svg viewBox="0 0 1000 210" preserveAspectRatio="none">
+                  <line x1="65" y1="30" x2="980" y2="30" stroke="#EAEAEA" stroke-width="1.5"/>
+                  <line x1="65" y1="105" x2="980" y2="105" stroke="#EAEAEA" stroke-width="1.5"/>
+                  <line x1="65" y1="180" x2="980" y2="180" stroke="#EAEAEA" stroke-width="1.5"/>
+                  <text x="4" y="38" class="chart-axis-label">28°C</text>
+                  <text x="4" y="113" class="chart-axis-label">24°C</text>
+                  <text x="4" y="188" class="chart-axis-label">20°C</text>
+                  <rect x="620" y="16" width="210" height="168" rx="12" fill="rgba(255, 88, 77, 0.12)" stroke="#FF584D" stroke-width="2" stroke-dasharray="6 6"/>
+                  <line x1="65" y1="68" x2="980" y2="68" stroke="#EAEAEA" stroke-width="6" stroke-dasharray="12 10"/>
+                  <path d="M65 152 C 200 142, 350 156, 500 146 C 600 140, 660 40, 725 34 C 790 30, 830 142, 980 146" fill="none" stroke="#F36E25" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2C: JSON Contract Block (Exact Slide 66 Pattern) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 8L5 18L12 28M24 8L31 18L24 28" stroke="#242529" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">6. JSON Contract Specification (.json-code-box)</h2>
+            </div>
+
+            <p class="prose">
+              Each JSON contract wraps a <code>1.5px dashed #242529</code> white code block (<code>.json-code-box</code>) inside a <code>#F0F0F0</code> container (<code>.json-contract-card</code>) with <code>#6BC785</code> keys and <code>#FF584D</code> types:
+            </p>
+
+            <div class="inner-grid-2" style="align-items: start;">
+              <div class="json-contract-card">
+                <p class="json-contract-title"><span class="kw-muted">REQUEST</span> Type</p>
+                <div class="json-code-box">{
+    "<span class="json-key">session_id</span>": <span class="json-type">String</span>,
+    "<span class="json-key">zone_id</span>": <span class="json-type">String</span>,
+    "<span class="json-key">setpoint_c</span>": <span class="json-type">Float</span>,
+    "<span class="json-key">chiller_on</span>": <span class="json-type">Bool</span>,
+    "<span class="json-key">telemetry</span>": [{
+        "<span class="json-key">sensor_id</span>": <span class="json-type">String</span>,
+        "<span class="json-key">reading_c</span>": <span class="json-type">Float</span>,
+        "<span class="json-key">flow_lpm</span>": <span class="json-type">Float</span>
+    }],
+    "<span class="json-key">safety_bounds</span>": {
+        "<span class="json-key">max_temp_c</span>": <span class="json-type">Float</span>,
+        "<span class="json-key">max_rmse_z</span>": <span class="json-type">Float</span>
+    }
+}</div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div class="json-contract-card">
+                  <p class="json-contract-title"><span class="kw">RESPONSE</span> Type</p>
+                  <div class="json-code-box">{
+    "<span class="json-key">status</span>": <span class="json-type">String</span>,
+    "<span class="json-key">anomaly_z</span>": <span class="json-type">Float</span>,
+    "<span class="json-key">actions</span>": [<span class="json-type">String</span>],
+    "<span class="json-key">note</span>": <span class="json-type">String</span>?
+}</div>
+                </div>
+                <div class="subcard">
+                  <p class="prose"><strong>Dispatched Action Enums:</strong></p>
+                  <ul class="bullet-list">
+                    <li class="bullet-item">
+                      <span class="bullet-icon"></span>
+                      <p class="bullet-content prose"><code>STAGE_CHILLER_ON</code> &amp; <code>MODULATE_VALVE</code></p>
+                    </li>
+                    <li class="bullet-item">
+                      <span class="bullet-icon"></span>
+                      <p class="bullet-content prose"><code>ISOLATE_SENSOR</code> &amp; <code>ALERT_OPERATOR</code></p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 3: KPI STATS & ANNOTATED MEDIA FRAMES ==================== -->
+        <div class="poster-col">
+
+          <!-- 3A: Dual KPI Stat Cards -->
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 28V16M14 28V10M22 28V18M30 28V8" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">7. Hero KPI Stat Cards (.stat-card)</h2>
+            </div>
+            <p class="prose">
+              Used inside <code>Example Use-case</code> and <code>Results</code> cards with a <code>10px solid var(--primary)</code> border, <code>32px</code> header + icon row, and <code>72px</code> hero numerals.
+            </p>
+            <div class="inner-grid-2">
+              <div class="stat-card">
+                <div class="subcard-header">
+                  <h3 class="card-title">Power Usage</h3>
+                  <span class="card-icon">
+                    <svg viewBox="0 0 36 36" fill="none"><path d="M18 6V30M18 30L10 22M18 30L26 22" stroke="#F36E25" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <div>
+                  <p class="stat-value">40% less</p>
+                  <p class="stat-label">vs traditional scheduling</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="subcard-header">
+                  <h3 class="card-title">Life Expectancy</h3>
+                  <span class="card-icon">
+                    <svg viewBox="0 0 36 36" fill="none"><path d="M18 30V6M18 6L10 14M18 6L26 14" stroke="#F36E25" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                </div>
+                <div>
+                  <p class="stat-value">+1.5 years</p>
+                  <p class="stat-label">due to less wear</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3B: Annotated Media / Hardware Showcase Frame -->
+          <article class="media-frame media-frame--fill">
+            <div class="media-stage">
+              <svg width="100%" height="100%" viewBox="0 0 1100 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="140" y="130" width="820" height="420" rx="28" fill="#232730" stroke="#3E4452" stroke-width="4"/>
+                <rect x="200" y="190" width="320" height="300" rx="18" fill="#181B20" stroke="#F36E25" stroke-width="4"/>
+                <circle cx="360" cy="340" r="88" stroke="#F36E25" stroke-width="6"/>
+                <rect x="570" y="190" width="330" height="300" rx="18" fill="#181B20" stroke="#6BC785" stroke-width="4"/>
+                <path d="M620 380 L 690 300 L 750 340 L 840 240" stroke="#6BC785" stroke-width="6" stroke-linecap="round"/>
+              </svg>
+
+              <div class="media-annotation" style="top: 48px; left: 48px;">
+                <span class="media-annotation-dot"></span>
+                <span>8. Annotated Media Frame (<code>.media-frame</code>)</span>
+              </div>
+
+              <div class="media-annotation" style="bottom: 140px; right: 48px; border-color: #6BC785;">
+                <span class="media-annotation-dot" style="background: #6BC785;"></span>
+                <span>Floating Callout Pill (<code>.media-annotation</code>)</span>
+              </div>
+            </div>
+
+            <div class="media-caption-bar">
+              <div>
+                <h3 class="card-title">10px Solid Primary Border Frame (rounded: 48px)</h3>
+                <p class="subcard-subtitle">Used for hardware photography, sensor callouts, and multi-device UI mockups</p>
+              </div>
+              <span class="badge">Media Showcase</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../scripts/poster-preview.js"></script>
+</body>
+</html>

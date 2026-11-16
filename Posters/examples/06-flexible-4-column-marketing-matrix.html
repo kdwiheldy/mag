@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example 06 — Flexible 4-Column Product &amp; Marketing Matrix (Archetype D)</title>
+  <link rel="stylesheet" href="../styles/poster-system.css" />
+</head>
+<body>
+  <main class="poster-stage">
+    <!--
+      EXAMPLE 06: FLEXIBLE 4-COLUMN PRODUCT & MARKETING MATRIX
+      Demonstrates the Flexible Multi-Column Rule:
+        4 Columns: 804px + 48px + 948px + 48px + 948px + 48px + 948px = 3744px
+        Every column starts at y=176px and ends flush at y=2112px (1936px height)
+    -->
+    <section class="poster-canvas" data-slide-name="06: Flexible 4-Column Matrix">
+
+      <!-- TOP HEADER BAR (3744px × 80px) — Title + Subtitle on BOTH Left and Right -->
+      <header class="poster-header">
+        <div class="poster-brand">
+          <div class="poster-brand-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" rx="22" fill="#242529"/>
+              <rect x="18" y="18" width="18" height="18" rx="5" fill="#F36E25"/>
+              <rect x="44" y="18" width="18" height="18" rx="5" fill="#6BC785"/>
+              <rect x="18" y="44" width="18" height="18" rx="5" fill="#FBC966"/>
+              <rect x="44" y="44" width="18" height="18" rx="5" fill="#F36E25"/>
+            </svg>
+          </div>
+          <div class="poster-brand-text">
+            <h1 class="poster-brand-title">Optense Platform — Modular Product Line</h1>
+            <p class="poster-brand-subtitle">Scalable On-Premise Deployment Tiers Across Industrial Facilities</p>
+          </div>
+        </div>
+        <div class="poster-header-meta">
+          <p class="poster-meta-title">Apple Developer Academy <span class="accent">Alumni</span></p>
+          <p class="poster-meta-subtitle">Kemal Dwi Heldy Muhammad — Cohort 2024</p>
+        </div>
+      </header>
+
+      <!-- 4-COLUMN BODY GRID (804 + 48 + 948 + 48 + 948 + 48 + 948 = 3744px) -->
+      <div class="poster-body poster-body--marketing-4">
+
+        <!-- ==================== COLUMN 1 (804px × 1936px) ==================== -->
+        <div class="poster-col">
+          <!-- Colored Primary Card (Icon + Title + Inner White .subcard) -->
+          <article class="card card--primary">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="28" height="28" rx="8" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M12 18H24M18 12V24" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Why Modular Tiers?</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                Factories shouldn’t replace working machinery to modernize operations. <strong>Optense</strong> deploys in <strong>three modular on-premise tiers</strong> that scale from basic telemetry logging to autonomous <code>AI processor</code> control.
+              </p>
+            </div>
+          </article>
+
+          <!-- Core Standards (.card--fill) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 10H30M6 18H30M6 26H20" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="28" cy="26" r="4" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Core Standards</h2>
+            </div>
+            <p class="prose">
+              Every <strong>Optense</strong> deployment tier shares the same industrial reliability guarantees across hardware and software:
+            </p>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Unified Firmware</strong> — Single deterministic binary across all field nodes and facility servers.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Zero Vendor Lock-In</strong> — Native <code>Modbus RTU</code> polling and open local <code>JSON</code> export.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>100% On-Premise</strong> — Zero cloud dependency; sensitive plant telemetry never leaves the facility.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Drop-In Retrofit</strong> — Connects directly to legacy <code>RS-485</code> buses without halting production.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Hardware Interlocks</strong> — Enforces physical min/max safety bounds before any relay actuation.
+                </p>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Warning / Note Card (Icon + Title + Inner White .subcard) -->
+          <article class="card card--warning">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M18 11V19M18 24.5V25" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Upgrade Path</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                Every <code>controller</code> can add the <code>AI processor</code> or <code>server</code> layer later without rewiring a single sensor or replacing field hardware.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 2 (948px × 1936px): TIER 01 ==================== -->
+        <div class="poster-col">
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                  <circle cx="18" cy="18" r="6" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Tier 01 — UICS Controller</h2>
+            </div>
+
+            <p class="prose">
+              <strong>The core of the system</strong>, responsible for reading connected instruments in real time and triggering automated rule responses on the factory floor.
+            </p>
+
+            <div class="stat-card">
+              <div class="subcard-header">
+                <h3 class="card-title">Direct I/O Channels</h3>
+                <span class="badge">Modbus</span>
+              </div>
+              <div>
+                <p class="stat-value">16+ Instruments</p>
+                <p class="stat-label">sensors, relays, and actuators per node</p>
+              </div>
+            </div>
+
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Included Capabilities</h3>
+                  <p class="subcard-subtitle">Replaces fixed hardware PLC timers</p>
+                </div>
+                <span class="badge badge--success">Core</span>
+              </div>
+              <ul class="bullet-list">
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>Real-Time Condition Rules</strong> — Evaluates <code>temp &lt; A°C</code> expressions continuously.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>Local Telemetry Logging</strong> — Stores high-resolution sensor history for audit and training.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>Zero Rewiring Updates</strong> — Reconfigure setpoints and schedules directly in software.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>OS27 Touch Interface</strong> — Local operator console for live instrument inspection.
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Rule Expression Engine</h3>
+                  <p class="subcard-subtitle">Direct reservoir-responsive chiller staging</p>
+                </div>
+                <span class="badge">40% Less Power</span>
+              </div>
+              <p class="prose">
+                Replaces blind daily schedules with live condition triggers that stage chillers only when needed, reducing power consumption by <code>40%</code> and extending compressor lifespan by <code>+1.5 years</code>:
+              </p>
+              <div class="arch-connector-row">
+                <span class="badge">temp &lt; A°C</span>
+                <div class="arch-connector-line"></div>
+                <span class="badge badge--error">chiller: OFF</span>
+              </div>
+              <div class="arch-connector-row">
+                <span class="badge">temp &gt; B°C</span>
+                <div class="arch-connector-line"></div>
+                <span class="badge badge--success">chiller: ON</span>
+              </div>
+              <p class="prose">
+                Threshold parameters <code>A</code> and <code>B</code> can be updated in software at any time without physical rewiring or halting production lines.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 3 (948px × 1936px): TIER 02 ==================== -->
+        <div class="poster-col">
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 4L22 14L32 18L22 22L18 32L14 22L4 18L14 14L18 4Z" stroke="#242529" stroke-width="3.2" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Tier 02 — AI Processor</h2>
+            </div>
+
+            <p class="prose">
+              <strong>Extends the controller with on-device machine learning</strong> for pattern recognition, anomaly detection, and natural-language assistance.
+            </p>
+
+            <div class="stat-card stat-card--solid">
+              <div class="subcard-header">
+                <h3 class="card-title">Anomaly Threshold</h3>
+                <span class="card-icon">
+                  <svg viewBox="0 0 36 36" fill="none"><path d="M6 26L14 16L21 21L30 9" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+              <div>
+                <p class="stat-value">3× RMSE</p>
+                <p class="stat-label">self-calibrating per instrument</p>
+              </div>
+            </div>
+
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">On-Device Intelligence</h3>
+                  <p class="subcard-subtitle">Powered by Create ML &amp; Core ML</p>
+                </div>
+                <span class="badge">.mlmodel</span>
+              </div>
+              <ul class="bullet-list">
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>On-Demand Training</strong> — Fits <code>MLBoostedTreeRegressor</code> models directly from logged readings.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>CPU-Friendly Inference</strong> — Runs concurrent models across multiple instruments on edge hardware.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>Schema-Constrained Assistant</strong> — Uses <code>@Generable</code> token masks so operators query live status and setpoints safely.
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Rolling Feature Window</h3>
+                  <p class="subcard-subtitle">Contextualizes every incoming sensor reading</p>
+                </div>
+                <span class="badge">10 Readings</span>
+              </div>
+              <p class="prose">
+                Because a single reading carries no memory, every sample is transformed into four temporal features before scoring:
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: 14px;">
+                <span class="badge">mean</span>
+                <span class="badge">std</span>
+                <span class="badge">delta</span>
+                <span class="badge">hour</span>
+              </div>
+              <p class="prose">
+                Captures recent baseline, signal volatility, rate of change, and human shift schedules in real time so normal operational transitions are cleanly distinguished from sudden refrigerant leaks, compressor stalls, or sensor faults.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 4 (948px × 1936px): TIER 03 + VISUAL ==================== -->
+        <div class="poster-col">
+          <!-- Top Annotated Media Frame (740px tall) -->
+          <article class="media-frame" style="height: 740px; flex-shrink: 0;">
+            <div class="media-stage">
+              <svg width="100%" height="100%" viewBox="0 0 880 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="90" y="50" width="700" height="420" rx="28" fill="#232730" stroke="#F36E25" stroke-width="4"/>
+                <circle cx="290" cy="260" r="95" fill="#181B20" stroke="#6BC785" stroke-width="5"/>
+                <circle cx="590" cy="260" r="95" fill="#181B20" stroke="#F36E25" stroke-width="5"/>
+                <path d="M385 260 L 495 260" stroke="#EAEAEA" stroke-width="6" stroke-dasharray="10 10"/>
+                <text x="235" y="270" fill="#6BC785" font-family="Geist Mono, monospace" font-size="26" font-weight="700">CTRL-01</text>
+                <text x="535" y="270" fill="#F36E25" font-family="Geist Mono, monospace" font-size="26" font-weight="700">CTRL-02</text>
+              </svg>
+              <div class="media-annotation" style="top: 36px; left: 36px;">
+                <span class="media-annotation-dot"></span>
+                <span>Centralized Multi-Controller View</span>
+              </div>
+            </div>
+            <div class="media-caption-bar">
+              <div>
+                <h3 class="card-title">Facility-Wide Server Layer</h3>
+                <p class="subcard-subtitle">Monitors all controllers from one interface</p>
+              </div>
+              <span class="badge">On-Prem</span>
+            </div>
+          </article>
+
+          <!-- Bottom Card: Tier 03 Central Server -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="6" width="26" height="9" rx="3" stroke="#242529" stroke-width="3.2"/>
+                  <rect x="5" y="21" width="26" height="9" rx="3" stroke="#242529" stroke-width="3.2"/>
+                  <circle cx="11" cy="10.5" r="2" fill="#F36E25"/>
+                  <circle cx="11" cy="25.5" r="2" fill="#6BC785"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Tier 03 — Central Server</h2>
+            </div>
+
+            <p class="prose">
+              Enables <strong>centralized monitoring of multiple</strong> <code>controllers</code> across an entire manufacturing facility and provides a rapid sandbox for testing new anomaly models before edge deployment.
+            </p>
+
+            <div class="json-contract-card">
+              <p class="json-contract-title">Telemetry Sync Contract (<code>Controller → Server</code>)</p>
+              <div class="json-code-box">{
+    "<span class="json-key">controller_id</span>": <span class="json-type">String</span>,
+    "<span class="json-key">facility_zone</span>": <span class="json-type">String</span>,
+    "<span class="json-key">instrument_id</span>": <span class="json-type">String</span>,
+    "<span class="json-key">reading_value</span>": <span class="json-type">Float</span>,
+    "<span class="json-key">predicted_val</span>": <span class="json-type">Float</span>?,
+    "<span class="json-key">anomaly_score</span>": <span class="json-type">Float</span>?,
+    "<span class="json-key">threshold_3x</span>": <span class="json-type">Float</span>?,
+    "<span class="json-key">relay_state</span>": <span class="json-type">String</span>,
+    "<span class="json-key">logged_at_ms</span>": <span class="json-type">Int</span>
+}</div>
+            </div>
+
+            <div class="subcard">
+              <p class="prose">
+                <strong>Zero-Downtime Prototyping:</strong> Validate new <code>Core ML</code> pipelines on historical server logs before updating field <code>controllers</code>, saving significant engineering time and effort across multi-line facilities.
+              </p>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../scripts/poster-preview.js"></script>
+</body>
+</html>

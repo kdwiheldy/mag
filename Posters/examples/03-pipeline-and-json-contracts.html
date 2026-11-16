@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example 03 — Pipeline Steps, JSON Contracts &amp; Pezen Theme (Archetype A)</title>
+  <link rel="stylesheet" href="../styles/poster-system.css" />
+</head>
+<body>
+  <main class="poster-stage">
+    <!--
+      EXAMPLE 03: PIPELINE STEPS, JSON SCHEMA CONTRACTS & ALTERNATE THEME (PEZEN)
+      Modeled on Slide 66 (244:1392)
+      Theme: data-theme="pezen" (--primary: #FFA84C, --font-sans: Poppins)
+      Grid Archetype A: 951px | 48px | 1349px | 48px | 1348px = 3744px
+    -->
+    <section class="poster-canvas" data-theme="pezen" data-slide-name="03: Pipeline & JSON Contracts (Pezen Theme)">
+
+      <!-- TOP HEADER BAR (3744px × 80px) — Title + Subtitle on BOTH Left and Right -->
+      <header class="poster-header">
+        <div class="poster-brand">
+          <div class="poster-brand-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" rx="22" fill="#242529"/>
+              <rect x="18" y="30" width="10" height="20" rx="5" fill="#FFA84C"/>
+              <rect x="35" y="20" width="10" height="40" rx="5" fill="#FFA84C"/>
+              <rect x="52" y="27" width="10" height="26" rx="5" fill="#FFA84C"/>
+            </svg>
+          </div>
+          <div class="poster-brand-text">
+            <h1 class="poster-brand-title">Pezen Waiter</h1>
+            <p class="poster-brand-subtitle">Voice-Driven Order &amp; POS Synchronization Pipeline</p>
+          </div>
+        </div>
+        <div class="poster-header-meta">
+          <p class="poster-meta-title"><span class="accent">Kemal</span> Dwi Heldy Muhammad</p>
+          <p class="poster-meta-subtitle">Apple Developer Academy — AI &amp; Voice Systems</p>
+        </div>
+      </header>
+
+      <!-- 3-COLUMN BODY (3744px × 1936px) -->
+      <div class="poster-body poster-body--archetype-a">
+
+        <!-- ==================== COLUMN 1 (951px) ==================== -->
+        <div class="poster-col">
+          <!-- Card 1: Colored Primary Card (Icon + Title + Inner White .subcard) -->
+          <article class="card card--primary">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M14 15C14 12.7909 15.7909 11 18 11C20.2091 11 22 12.7909 22 15C22 17 18 18 18 21M18 25.5V26" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">What is Pezen Waiter?</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                Ordering at a self-service table iPad should feel effortless, yet navigating nested menus and modifiers often slows guests down. <strong>Pezen Waiter</strong> is a conversational voice ordering module integrated into the <strong>Pezen Table App</strong> that lets guests speak naturally, revise quantities mid-sentence, and confirm complex orders without waiting for staff.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 2: What it does (.card--fill) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 10H30M6 18H30M6 26H20" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="28" cy="26" r="4" fill="#FFA84C"/>
+                </svg>
+              </span>
+              <h2 class="card-title">What it does</h2>
+            </div>
+            <p class="prose">
+              <strong>Pezen Waiter</strong> combines <strong>on-device voice detection</strong> with a <strong>multi-stage language pipeline</strong> to turn casual spoken requests into verified POS actions:
+            </p>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Voice Activity Detection (VAD)</strong> which allows the customer and the virtual waiter to “take turns” automatically.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Speech-to-text (STT)</strong> which converts audio into text needed for processing the customer’s order.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Disfluency repair</strong> to handle the natural imperfections of spoken language, such as hesitations, filler words, and self-corrections.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Intent extraction</strong> is where the language-processing happens and determines what the customer wants.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <strong>Deterministic validation</strong> for validating menu items or operations that didn’t make sense and replacing them with a proper reply.
+                </p>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Bottom Row: 2 Side-by-Side Level 1 Cards (Base Application & AI Pipeline — Exact Slide 66 Col 1 Bottom) -->
+          <div class="poster-subgrid">
+            <article class="card" style="justify-content: space-between; min-height: 400px;">
+              <div class="card-header">
+                <span class="card-icon">
+                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="4" width="24" height="28" rx="5" stroke="#242529" stroke-width="3.5"/>
+                    <circle cx="18" cy="27" r="2" fill="#FFA84C"/>
+                  </svg>
+                </span>
+                <h2 class="card-title">Base App</h2>
+              </div>
+              <div>
+                <p class="stat-value stat-value--dark">iPad</p>
+                <p class="subcard-subtitle">Pezen Table App</p>
+              </div>
+            </article>
+
+            <article class="card" style="justify-content: space-between; min-height: 400px;">
+              <div class="card-header">
+                <span class="card-icon">
+                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 4L22 14L32 18L22 22L18 32L14 22L4 18L14 14L18 4Z" stroke="#242529" stroke-width="3.2" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <h2 class="card-title">AI Pipeline</h2>
+              </div>
+              <div>
+                <p class="stat-value stat-value--dark" style="font-size: 56px; line-height: 1.15;">Cloud <span style="font-size: 28px; font-weight: 400; color: #606363;">or</span><br/>On-device</p>
+                <p class="subcard-subtitle">Configurable via App</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ==================== COLUMN 2 (1349px) ==================== -->
+        <div class="poster-col">
+          <!-- Full-Height Card: General Architecture + JSON Contracts (Exact Slide 66 Col 2) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="6" width="11" height="11" rx="3" stroke="#242529" stroke-width="3"/>
+                  <rect x="21" y="6" width="11" height="11" rx="3" stroke="#242529" stroke-width="3"/>
+                  <rect x="12.5" y="21" width="11" height="11" rx="3" stroke="#FFA84C" stroke-width="3"/>
+                </svg>
+              </span>
+              <h2 class="card-title">General Architecture</h2>
+            </div>
+
+            <!-- Dashed Architecture Canvas -->
+            <div class="arch-canvas" style="flex-direction: row; align-items: center; gap: 24px;">
+              <!-- Left Zone: iPad App -->
+              <div class="arch-zone arch-zone--muted" style="flex: 1;">
+                <div class="arch-zone-header">
+                  <span class="arch-zone-title">iPad App</span>
+                </div>
+                <div class="arch-node"><span class="arch-node-label">Voice Activity Detection</span></div>
+                <div class="arch-node"><span class="arch-node-label">Text-to-Speech</span></div>
+                <div class="arch-node"><span class="arch-node-label">Handling Intents</span></div>
+              </div>
+
+              <!-- Center Connectors: REQUEST & RESPONSE -->
+              <div style="display: flex; flex-direction: column; gap: 36px; align-items: center;">
+                <span class="diagram-chip diagram-chip--neutral">REQUEST →</span>
+                <span class="diagram-chip">← RESPONSE</span>
+              </div>
+
+              <!-- Right Zone: AI Pipeline -->
+              <div class="arch-zone arch-zone--accent" style="flex: 1.15;">
+                <div class="arch-zone-header">
+                  <span class="arch-zone-title">AI Pipeline</span>
+                  <div style="display: flex; gap: 6px; align-items: center;">
+                    <span class="diagram-chip diagram-chip--tint">on-device</span>
+                    <span class="kw-dark" style="font-size: 20px;">or</span>
+                    <span class="diagram-chip diagram-chip--tint">cloud</span>
+                  </div>
+                </div>
+                <div class="arch-node"><span class="arch-node-label">Audio Preprocessing</span></div>
+                <div class="arch-node"><span class="arch-node-label">Speech-to-Text &amp; Disfluency Repair</span></div>
+                <div class="arch-node"><span class="arch-node-label">Intent Extraction &amp; Validation</span></div>
+              </div>
+            </div>
+
+            <p class="prose">
+              <strong>Every voice interaction follows a structured pipeline</strong>. The iPad captures the customer's speech and <strong>detects when they have finished speaking</strong>. The <span class="kw-muted">REQUEST</span> is then processed by the AI pipeline, which <strong>converts speech into text</strong>, <strong>extracts the customer's intent</strong>, <strong>validates the generated actions</strong> against the restaurant's menu, and returns a structured <code>RESPONSE</code> for the app to execute.
+            </p>
+
+            <!-- Exact Slide 66 JSON Contract Boxes + Action Types List -->
+            <div class="inner-grid-2" style="align-items: start;">
+              <div class="json-contract-card">
+                <p class="json-contract-title"><span class="kw-muted">REQUEST</span> Type</p>
+                <div class="json-code-box">{
+    "<span class="json-key">session_id</span>": <span class="json-type">String</span>
+    "<span class="json-key">restaurant_id</span>": <span class="json-type">String</span>
+    "<span class="json-key">input</span>": {
+        "<span class="json-key">transcript</span>": <span class="json-type">String</span>?
+        "<span class="json-key">audio_segments</span>": [<span class="json-type">String</span>]?
+    }
+    "<span class="json-key">cart</span>": [{
+        "<span class="json-key">menu_id</span>": <span class="json-type">String</span>
+        "<span class="json-key">name</span>": <span class="json-type">String</span>
+        "<span class="json-key">quantity</span>": <span class="json-type">Int</span>
+        "<span class="json-key">price</span>": <span class="json-type">Int</span>
+        "<span class="json-key">note</span>": <span class="json-type">String</span>?
+    }]
+    "<span class="json-key">catalog</span>": [{
+        "<span class="json-key">menu_id</span>": <span class="json-type">String</span>
+        "<span class="json-key">name</span>": <span class="json-type">String</span>
+        "<span class="json-key">category</span>": <span class="json-type">String</span>?
+        "<span class="json-key">description</span>": <span class="json-type">String</span>?
+        "<span class="json-key">available</span>": <span class="json-type">Bool</span>
+        "<span class="json-key">price</span>": <span class="json-type">Int</span>
+    }]
+    "<span class="json-key">history</span>": [{
+        "<span class="json-key">role</span>": <span class="json-type">String</span>
+        "<span class="json-key">text</span>": <span class="json-type">String</span>
+    }]
+}</div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 24px;">
+                <div class="json-contract-card">
+                  <p class="json-contract-title"><span class="kw">RESPONSE</span> Type</p>
+                  <div class="json-code-box">{
+    "<span class="json-key">session_id</span>": <span class="json-type">String</span>
+    "<span class="json-key">reply</span>": <span class="json-type">String</span>
+    "<span class="json-key">actions</span>": [{
+        "<span class="json-key">type</span>": <span class="json-type">String</span>
+        "<span class="json-key">menu_id</span>": <span class="json-type">String</span>?
+        "<span class="json-key">quantity</span>": <span class="json-type">Int</span>?
+        "<span class="json-key">note</span>": <span class="json-type">String</span>?
+    }]
+    "<span class="json-key">suggestions</span>": [<span class="json-type">String</span>]
+    "<span class="json-key">transcript</span>": <span class="json-type">String</span>?
+}</div>
+                </div>
+
+                <p class="prose"><strong>List of action types:</strong></p>
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <p class="bullet-content prose"><code>add_item</code> — Adds a menu item to cart</p>
+                  </li>
+                  <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <p class="bullet-content prose"><code>update_quantity</code> — Adjusts item count</p>
+                  </li>
+                  <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <p class="bullet-content prose"><code>remove_item</code> — Removes item from cart</p>
+                  </li>
+                  <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <p class="bullet-content prose"><code>update_note</code> — Sets preparation notes</p>
+                  </li>
+                  <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <p class="bullet-content prose"><code>clear_cart</code> &amp; <code>confirm_order</code></p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 3 (1348px) ==================== -->
+        <div class="poster-col">
+          <!-- Full-Height 5-Step Vertical Pipeline Card (Exact Slide 66 Right Column) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 8H26M10 18H26M10 28H20" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">How it Works</h2>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Voice Activity Detection</h3>
+                  <p class="subcard-subtitle">Detects end-of-speech (SileroVAD)</p>
+                </div>
+                <span class="badge">iPad</span>
+              </div>
+              <div class="prompt-strip">
+                <span>“Saya mau Mie Ayam Bakso dua, eh tiga [SILENCE]”</span>
+                <span class="prompt-strip-tag">audio</span>
+              </div>
+              <p class="prose">
+                Once the silence is detected, it creates an audio file in a <code>.wav</code> format and packages the live cart and catalog context into a <span class="kw-muted">REQUEST</span> payload sent to the <code>AI pipeline</code>.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Speech-to-text</h3>
+                  <p class="subcard-subtitle">Converts audio into text</p>
+                </div>
+                <span class="badge">AI Pipeline</span>
+              </div>
+              <div class="prompt-strip">
+                <span>saya mau mi ayam baso dua, eh tiga</span>
+                <span class="prompt-strip-tag">text</span>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Disfluency Repair</h3>
+                  <p class="subcard-subtitle">Removes spoken imperfections</p>
+                </div>
+                <span class="badge">AI Pipeline</span>
+              </div>
+              <div class="prompt-strip">
+                <span>saya mau mi ayam baso tiga</span>
+                <span class="prompt-strip-tag">text</span>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Intent Extraction</h3>
+                  <p class="subcard-subtitle">Produces structured actions</p>
+                </div>
+                <span class="badge">AI Pipeline</span>
+              </div>
+              <div class="prompt-strip" style="font-style: normal; font-family: var(--font-mono); font-weight: 600; font-size: 28px;">
+                <span>{"name":"mi ayam baso","qty":3,"note":null,"op":"add"}</span>
+                <span class="prompt-strip-tag">json</span>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Deterministic Validation</h3>
+                  <p class="subcard-subtitle">Verifies every generated action</p>
+                </div>
+                <span class="badge">AI Pipeline</span>
+              </div>
+              <p class="prose">
+                Matches the extracted intent items against the <span class="kw-muted">REQUEST</span>’s live catalog to verify availability and item IDs, then dispatches the verified <code>RESPONSE</code> payload back to the iPad table app for immediate execution.
+              </p>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../scripts/poster-preview.js"></script>
+</body>
+</html>

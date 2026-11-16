@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example 05 — Wider Left Column, Multi-Device UI Showcase &amp; Evaluation (Archetype C)</title>
+  <link rel="stylesheet" href="../styles/poster-system.css" />
+</head>
+<body>
+  <main class="poster-stage">
+    <!--
+      EXAMPLE 05: WIDER LEFT COLUMN + MULTI-DEVICE SHOWCASE + EVALUATION SPLIT
+      Modeled on Slide 67 (245:1683)
+      Grid Archetype C:
+        Left Column: 1062px × 1936px (Widened so technical Geist Mono bullets fit on 1 line)
+        Right Column Area: 2634px × 1936px
+          - Top Multi-Device Mockup Frame: 2634px × 860px
+          - Gap: 48px
+          - Bottom Sub-Grid (1309px + 48px + 1277px = 2634px, height: 1028px)
+    -->
+    <section class="poster-canvas" data-slide-name="05: Device Showcase & Evaluation">
+
+      <!-- TOP HEADER BAR (3744px × 80px) — Title + Subtitle on BOTH Left and Right -->
+      <header class="poster-header">
+        <div class="poster-brand">
+          <div class="poster-brand-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" rx="22" fill="#242529"/>
+              <rect x="18" y="22" width="44" height="36" rx="10" stroke="#F36E25" stroke-width="6"/>
+              <circle cx="40" cy="40" r="6" fill="#F36E25"/>
+            </svg>
+          </div>
+          <div class="poster-brand-text">
+            <h1 class="poster-brand-title">Optense UICS — Controller</h1>
+            <p class="poster-brand-subtitle">OS27 On-Device AI Assistant &amp; Constrained Decoding</p>
+          </div>
+        </div>
+        <div class="poster-header-meta">
+          <p class="poster-meta-title"><span class="accent">Kemal</span> Dwi Heldy Muhammad</p>
+          <p class="poster-meta-subtitle">Apple Developer Institute for AIML</p>
+        </div>
+      </header>
+
+      <!-- BODY GRID: 1062px + 48px + 2634px = 3744px -->
+      <div class="poster-body poster-body--archetype-c">
+
+        <!-- ==================== COLUMN 1 (1062px × 1936px) ==================== -->
+        <div class="poster-col">
+          <!-- Card 1: Colored Primary Card (Icon + Title + Inner White .subcard) -->
+          <article class="card card--primary">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="28" height="28" rx="8" stroke="#242529" stroke-width="3.5"/>
+                  <path d="M12 18H24M18 12V24" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h2 class="card-title">Why Constrained On-Device AI?</h2>
+            </div>
+            <div class="subcard">
+              <p class="prose">
+                Industrial operators need a fast, offline assistant on the <code>OS27</code> controller console. By binding Apple’s <code>FoundationModels</code> runtime to live schema constraints, the model can <strong>never invent non-existent instruments</strong> or <strong>unsafe setpoints</strong>.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 2: Architecture & Technical Constraints (.card--fill) -->
+          <article class="card card--fill">
+            <div class="card-header">
+              <span class="card-icon">
+                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 10H30M6 18H30M6 26H20" stroke="#242529" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="28" cy="26" r="4" fill="#F36E25"/>
+                </svg>
+              </span>
+              <h2 class="card-title">How FoundationModels Powers It</h2>
+            </div>
+
+            <p class="prose">
+              Every operator request is evaluated locally on the controller’s Neural Engine using <strong>strict grammar-guided token sampling</strong> and <strong>live instrument registries</strong>. Rather than relying on prompt engineering alone, the runtime enforces type safety at the token-decoding layer:
+            </p>
+
+            <!-- 7 Single-Line Technical Bullets (Why Col 1 is widened to 1062px) -->
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <code>@Generable</code> — compiles Swift structs into strict token masks
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <code>DynamicGenerationSchema</code> — can only pick a real entity
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <code>ToolCalling</code> — fetches live sensor registers before replying
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <code>TemperatureEnvelope</code> — clamps output range to 16°C–28°C
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <code>ConfirmationGate</code> — requires tap approval for relay actuation
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <code>ZeroCloudDependency</code> — runs 100% offline on Neural Engine
+                </p>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"></span>
+                <p class="bullet-content prose">
+                  <code>SessionTranscript</code> — logs audit trail for every operator query
+                </p>
+              </li>
+            </ul>
+
+            <div class="subcard subcard--lg">
+              <div class="subcard-header">
+                <div class="subcard-title-stack">
+                  <h3 class="card-title">Zero-Retraining Instrument Discovery</h3>
+                  <p class="subcard-subtitle">Live Modbus registry injection at session start</p>
+                </div>
+                <span class="badge">Runtime</span>
+              </div>
+              <p class="prose">
+                Because schema enumerations are injected dynamically at runtime, adding a new <code>Modbus</code> sensor immediately makes it queryable by name with <strong>zero model retraining</strong>. The assistant reads the active controller configuration, builds a strongly typed entity list, and updates its valid token mask automatically before decoding begins on the local Neural Engine, guaranteeing type-safe execution across every facility zone.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- ==================== COLUMN 2+3 WIDE AREA (2634px × 1936px) ==================== -->
+        <div class="poster-col">
+
+          <!-- TOP MULTI-DEVICE SHOWCASE FRAME (2634px × 860px) -->
+          <article class="media-frame" style="height: 860px; flex-shrink: 0;">
+            <div class="media-stage media-stage--light">
+              <div class="device-mockup-row">
+
+                <!-- Device 1: Live Zone Telemetry & Assistant Drawer -->
+                <div class="device-bezel">
+                  <div class="device-screen">
+                    <div class="subcard-header">
+                      <span class="card-title">OS27 • Zone Overview</span>
+                      <span class="badge badge--success">OK</span>
+                    </div>
+                    <div class="subcard subcard--muted">
+                      <div class="subcard-header">
+                        <span class="card-title">Cold Room A-01</span>
+                        <span class="kw" style="font-size: 32px;">18.4°C</span>
+                      </div>
+                      <p class="subcard-subtitle">Humidity: 54% RH • Chiller Relay: ON • Door: CLOSED</p>
+                      <div class="prompt-strip" style="padding: 20px 24px; font-size: 24px;">
+                        <span>“Why did Cold Room A-01 spike at 14:20?”</span>
+                      </div>
+                      <p class="prose" style="font-size: 24px;">
+                        <strong>Telemetry Match:</strong> Door reed switch logged open from <code>14:16</code> to <code>14:23</code> during pallet loading.
+                      </p>
+                    </div>
+                    <p class="prose" style="font-size: 24px;">
+                      <strong>AI Diagnosis:</strong> Defrost cycle overlapped with loading bay door open for <code>6m 40s</code>.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Device 2: Schema-Constrained Setpoint Action Card -->
+                <div class="device-bezel">
+                  <div class="device-screen">
+                    <div class="subcard-header">
+                      <span class="card-title">OS27 • Action Preview</span>
+                      <span class="badge">Verified</span>
+                    </div>
+                    <div class="subcard subcard--muted">
+                      <div class="prompt-strip" style="padding: 20px 24px; font-size: 24px;">
+                        <span>“Lower Zone B-02 target to 19.5°C”</span>
+                      </div>
+                      <div class="json-code-box" style="font-size: 22px; padding: 18px;">{
+  "<span class="json-key">zone</span>": <span class="json-type">"ZONE_B_02"</span>,
+  "<span class="json-key">setpoint_c</span>": <span class="json-type">19.5</span>,
+  "<span class="json-key">require_confirm</span>": <span class="json-type">true</span>
+}</div>
+                    </div>
+                    <p class="prose" style="font-size: 24px;">
+                      <strong>Schema Lock:</strong> Output restricted to valid <code>ZoneID</code> enum values.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Device 3: Multi-Sensor Trend & Guardrail Rejection -->
+                <div class="device-bezel">
+                  <div class="device-screen">
+                    <div class="subcard-header">
+                      <span class="card-title">OS27 • Safety Guard</span>
+                      <span class="badge badge--error">Blocked</span>
+                    </div>
+                    <div class="subcard subcard--muted">
+                      <div class="prompt-strip" style="padding: 20px 24px; font-size: 24px;">
+                        <span>“Set Cleanroom C-04 chiller to 5°C”</span>
+                      </div>
+                      <p class="prose" style="font-size: 24px;">
+                        <strong>Interlock Active:</strong> Requested <code>5.0°C</code> violates allowed <code>16.0°C – 28.0°C</code> envelope.
+                      </p>
+                      <p class="prose" style="font-size: 24px;">
+                        <strong>Action Prevented:</strong> Relay write command rejected before reaching <code>Modbus</code> bus.
+                      </p>
+                    </div>
+                    <p class="prose" style="font-size: 24px;">
+                      Suggested safe minimum: <code>16.0°C</code> (Condensation limit).
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- BOTTOM SPLIT ROW: 1309px + 48px + 1277px = 2634px (Height: 1028px) -->
+          <div class="poster-subgrid poster-subgrid--fill" style="--subcols: 1309px 1277px;">
+
+            <!-- Left Bottom Card: What Worked Well? (1309px × 1028px) -->
+            <article class="card card--fill">
+              <div class="card-header">
+                <span class="card-icon">
+                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="18" cy="18" r="14" stroke="#242529" stroke-width="3.5"/>
+                    <path d="M11 18L16 23L25 13" stroke="#F36E25" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <h2 class="card-title">What worked well?</h2>
+              </div>
+
+              <div class="subcard subcard--lg">
+                <p class="prose">
+                  <strong>Zero Hallucinated Entity IDs</strong> — Dynamic runtime enumerations guaranteed that even informal or ambiguous natural-language queries always resolved to an existing physical <code>instrument</code> in the facility:
+                </p>
+                <div class="prompt-strip">
+                  <span>“Turn on the backup cooling fan in the north packing bay”</span>
+                </div>
+                <div class="prompt-strip">
+                  <span>“Compare humidity between fermentation room 1 and room 2”</span>
+                </div>
+                <p class="prose">
+                  Average time-to-first-token measured <code>190 ms</code> on M-series iPad with <strong>zero network traffic</strong> required, keeping all factory floor telemetry strictly on-premise.
+                </p>
+              </div>
+
+              <div class="subcard subcard--lg">
+                <div class="subcard-header">
+                  <div class="subcard-title-stack">
+                    <h3 class="card-title">Deterministic Safety Clamping</h3>
+                    <p class="subcard-subtitle">Hardware bounds enforced prior to Modbus write</p>
+                  </div>
+                  <span class="badge badge--success">100% Safe</span>
+                </div>
+                <p class="prose">
+                  Even when operators requested out-of-range temperatures, <code>@Guide</code> constraints clamped every value to safe bounds.
+                </p>
+              </div>
+            </article>
+
+            <!-- Right Bottom Card: Limitations (1277px × 1028px) -->
+            <article class="card card--fill">
+              <div class="card-header">
+                <span class="card-icon">
+                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 5L33 31H3L18 5Z" stroke="#242529" stroke-width="3.2" stroke-linejoin="round"/>
+                    <path d="M18 15V21M18 26V26.5" stroke="#F36E25" stroke-width="3.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <h2 class="card-title">Limitations</h2>
+              </div>
+
+              <p class="prose">
+                While single-turn actuation and telemetry lookups achieved <strong>98.4% accuracy</strong>, compact on-device models exposed four practical engineering boundaries during plant testing:
+              </p>
+
+              <ul class="bullet-list">
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>4,096-Token Context Window</strong> — Passing raw 24-hour sensor CSV logs overflows context; requires pre-aggregated <code>SummaryStatsTool</code> calls.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>Chained Conditional Schedules</strong> — Prompts combining 3+ temporal conditions require a dedicated <code>RuleBuilder</code> step before execution.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>Sequential Tool Latency</strong> — Queries comparing more than 4 zones sequentially add <code>~120 ms</code> per tool call on the local <code>RS-485</code> bus during live polling cycles.
+                  </p>
+                </li>
+                <li class="bullet-item">
+                  <span class="bullet-icon"></span>
+                  <p class="bullet-content prose">
+                    <strong>Noisy Industrial Floor Acoustics</strong> — High-decibel compressor rooms require push-to-talk input rather than far-field tablet microphones.
+                  </p>
+                </li>
+              </ul>
+
+              <div class="subcard subcard--lg">
+                <p class="prose">
+                  <strong>Next Iteration:</strong> Pre-computing rolling hourly summaries in local <code>SQLite</code> tables eliminates multi-tool context pressure while preserving sub-second response times, deterministic safety validation, and offline reliability across all facility zones.
+                </p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../scripts/poster-preview.js"></script>
+</body>
+</html>
