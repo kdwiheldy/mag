@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const framerPkg = path.join(rootDir, 'framer/package.json');
+const layoutsJsonPath = path.join(rootDir, 'framer/layouts.json');
 const port = Number(process.argv[2] || 4173);
 
 const MIME = {
@@ -72,6 +73,74 @@ http
   .createServer(async (req, res) => {
     const reqPath = decodeURIComponent((req.url || '/').split('?')[0]);
 
+    if (req.method === 'GET' && reqPath === '/api/layouts') {
+      try {
+        const raw = fs.existsSync(layoutsJsonPath) ? fs.readFileSync(layoutsJsonPath, 'utf8') : '[]';
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(raw);
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
+    if (req.method === 'POST' && reqPath === '/api/layouts') {
+      let body = '';
+      req.on('data', (chunk) => (body += chunk));
+      req.on('end', () => {
+        try {
+          const layout = JSON.parse(body || '{}');
+          if (!layout.id || !Array.isArray(layout.frames)) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ ok: false, error: 'Missing layout id or frames' }));
+            return;
+          }
+          // Lock layout & normalize each frame's bezel boolean
+          layout.locked = true;
+          layout.frames = layout.frames.map((f) => ({
+            deviceId: f.deviceId,
+            x: Math.round(Number(f.x) || 0),
+            y: Math.round(Number(f.y) || 0),
+            width: Math.round(Number(f.width) || 400),
+            rotation: Number(f.rotation) || 0,
+            showDeviceFrame: Boolean(f.showDeviceFrame),
+          }));
+
+          const existing = fs.existsSync(layoutsJsonPath)
+            ? JSON.parse(fs.readFileSync(layoutsJsonPath, 'utf8'))
+            : [];
+          const idx = existing.findIndex((l) => l.id === layout.id);
+          if (idx >= 0) existing[idx] = layout;
+          else existing.push(layout);
+          fs.writeFileSync(layoutsJsonPath, JSON.stringify(existing, null, 2));
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, layouts: existing }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: err.message }));
+        }
+      });
+      return;
+    }
+
+    if (req.method === 'DELETE' && reqPath.startsWith('/api/layouts/')) {
+      try {
+        const targetId = decodeURIComponent(reqPath.slice('/api/layouts/'.length));
+        const existing = fs.existsSync(layoutsJsonPath)
+          ? JSON.parse(fs.readFileSync(layoutsJsonPath, 'utf8'))
+          : [];
+        const filtered = existing.filter((l) => l.id !== targetId);
+        fs.writeFileSync(layoutsJsonPath, JSON.stringify(filtered, null, 2));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, layouts: filtered }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
     if (req.method === 'POST' && reqPath === '/api/export-png') {
       let body = '';
       req.on('data', (chunk) => (body += chunk));
@@ -106,7 +175,8 @@ http
   })
   .listen(port, '127.0.0.1', () => {
     console.log(`Unified Poster & Framer server running at http://127.0.0.1:${port}/`);
-    console.log(`  - Portrait: http://127.0.0.1:${port}/template-social-portrait.html`);
-    console.log(`  - Square:   http://127.0.0.1:${port}/template-social-square.html`);
-    console.log(`  - Starter:  http://127.0.0.1:${port}/template-starter.html`);
+    console.log(`  - Layout Editor: http://127.0.0.1:${port}/layout-editor.html`);
+    console.log(`  - Portrait:      http://127.0.0.1:${port}/template-social-portrait.html`);
+    console.log(`  - Square:        http://127.0.0.1:${port}/template-social-square.html`);
+    console.log(`  - Starter:       http://127.0.0.1:${port}/template-starter.html`);
   });

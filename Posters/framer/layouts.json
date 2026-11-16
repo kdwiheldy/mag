@@ -1,0 +1,450 @@
+[
+  {
+    "id": "mix-masonry-1",
+    "label": "Mixed Masonry 1",
+    "intrinsicWidth": 2400,
+    "intrinsicHeight": 2400,
+    "purposes": [
+      "cover",
+      "gallery"
+    ],
+    "summary": "Dense branded collage of iPhone and browser screens around a center app icon.",
+    "guidance": "A portfolio/project cover for products that span mobile and web. The app icon is the hero. Needs several varied screenshots to fill it; not for a single feature.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 346,
+        "y": 290.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1812,
+        "y": 1503.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1200,
+        "y": 2115.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 287.5,
+        "y": 2071,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2724.5,
+        "y": 1804,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "browser",
+        "x": 1385,
+        "y": 463,
+        "width": 1366,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "browser",
+        "x": 161,
+        "y": 1331,
+        "width": 1366,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "browser",
+        "x": 2552,
+        "y": 765,
+        "width": 1366,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "browser",
+        "x": 2239,
+        "y": 2544,
+        "width": 1366,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "app-icon",
+        "x": 1200,
+        "y": 1200,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": false
+      }
+    ]
+  },
+  {
+    "id": "mix-masonry-2",
+    "label": "Mixed Masonry 2",
+    "intrinsicWidth": 2400,
+    "intrinsicHeight": 2400,
+    "purposes": [
+      "cover",
+      "gallery"
+    ],
+    "summary": "Dense branded collage mixing iPhone and iPad screens around a center app icon.",
+    "guidance": "Cover for projects that span phone and tablet, with the app icon as the centerpiece. Use when you have many screens across device sizes.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "iphone-17-pro",
+        "x": -24,
+        "y": 390.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 588,
+        "y": 390.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1200,
+        "y": 2115.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1812,
+        "y": 1503.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1812,
+        "y": 2716.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2724.5,
+        "y": 1432,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2724.5,
+        "y": 2044,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "ipad-pro-m4-11-landscape",
+        "x": 1506,
+        "y": 466.5,
+        "width": 1124,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "ipad-pro-m4-11-landscape",
+        "x": 282,
+        "y": 2309.5,
+        "width": 1124,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "ipad-pro-m4-11-landscape",
+        "x": 282,
+        "y": 1434.5,
+        "width": 1124,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "ipad-pro-m4-11-landscape",
+        "x": 2555.5,
+        "y": 514,
+        "width": 1124,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "app-icon",
+        "x": 1200,
+        "y": 1200,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": false
+      }
+    ]
+  },
+  {
+    "id": "iphone-masonry",
+    "label": "iPhone Masonry",
+    "intrinsicWidth": 2400,
+    "intrinsicHeight": 2400,
+    "purposes": [
+      "cover",
+      "gallery"
+    ],
+    "summary": "Dense collage of iPhone screens around a center app icon.",
+    "guidance": "Cover for an iPhone-only app. Showcases breadth of screens with the icon as anchor. Prefer over mix-masonry when everything is a phone.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 287.5,
+        "y": 249,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1200,
+        "y": 287.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1812,
+        "y": 287.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2724.5,
+        "y": -27,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": -24,
+        "y": 1161.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 588,
+        "y": 1161.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1812,
+        "y": 1500.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2424,
+        "y": 885.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 287.5,
+        "y": 2074,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1200,
+        "y": 2112.5,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2724.5,
+        "y": 1798,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2112.5,
+        "y": 2413,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "app-icon",
+        "x": 1200,
+        "y": 1200,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": false
+      }
+    ]
+  },
+  {
+    "id": "dual-iphone",
+    "label": "Dual iPhone",
+    "intrinsicWidth": 1400,
+    "intrinsicHeight": 1400,
+    "purposes": [
+      "comparison",
+      "feature"
+    ],
+    "summary": "Two upright iPhones side by side.",
+    "guidance": "Compare two related screens (before/after, light/dark, empty/filled) or pair a feature with its detail. Clean and focused — not for showing many screens.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 440,
+        "y": 700,
+        "width": 400,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 960,
+        "y": 700,
+        "width": 400,
+        "rotation": 0,
+        "showDeviceFrame": true
+      }
+    ]
+  },
+  {
+    "id": "hero-landscape",
+    "label": "Landscape Hero",
+    "intrinsicWidth": 2000,
+    "intrinsicHeight": 1400,
+    "purposes": [
+      "feature",
+      "detail"
+    ],
+    "summary": "One large browser window.",
+    "guidance": "Spotlight a single web page, landing page, or desktop view. Best when the subject is a website rather than a mobile screen.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "browser",
+        "x": 1000,
+        "y": 700,
+        "width": 1600,
+        "rotation": 0,
+        "showDeviceFrame": true
+      }
+    ]
+  },
+  {
+    "id": "hero-ipad-landscape",
+    "label": "iPad Landscape Hero",
+    "intrinsicWidth": 2400,
+    "intrinsicHeight": 2400,
+    "purposes": [
+      "feature",
+      "detail"
+    ],
+    "summary": "A single iPad in landscape.",
+    "guidance": "Spotlight one tablet or landscape feature. Good for split-view or wide iPad layouts.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "ipad-pro-m4-11-landscape",
+        "x": 1200,
+        "y": 1200,
+        "width": 1210,
+        "rotation": 0,
+        "showDeviceFrame": true
+      }
+    ]
+  },
+  {
+    "id": "hero-ipad-portrait",
+    "label": "iPad Portrait Hero",
+    "intrinsicWidth": 2400,
+    "intrinsicHeight": 2400,
+    "purposes": [
+      "feature",
+      "detail"
+    ],
+    "summary": "A single iPad in portrait.",
+    "guidance": "Spotlight one tablet feature in portrait orientation.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "ipad-pro-m4-11-portrait",
+        "x": 1200,
+        "y": 1200,
+        "width": 834,
+        "rotation": 0,
+        "showDeviceFrame": true
+      }
+    ]
+  },
+  {
+    "id": "hero-iphone-portrait",
+    "label": "iPhone Portrait Hero",
+    "intrinsicWidth": 2400,
+    "intrinsicHeight": 2400,
+    "purposes": [
+      "feature",
+      "detail"
+    ],
+    "summary": "A single upright iPhone.",
+    "guidance": "Spotlight one mobile feature or screen. The default choice for describing a single iPhone view.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1200,
+        "y": 1200,
+        "width": 402,
+        "rotation": 0,
+        "showDeviceFrame": true
+      }
+    ]
+  }
+]

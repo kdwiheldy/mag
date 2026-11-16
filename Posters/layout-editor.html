@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Framer — Device Layout Editor</title>
+  <link rel="stylesheet" href="styles/poster-system.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #141518;
+      color: #F4F5F7;
+      font-family: var(--font-sans);
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 310px 1fr 340px;
+      grid-template-rows: 60px 1fr;
+    }
+    .topbar {
+      grid-column: 1 / -1;
+      background: #1B1D22;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .topbar-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      background: var(--primary);
+    }
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      background: rgba(255,255,255,0.08);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn:hover:not(:disabled) { background: rgba(255,255,255,0.16); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn--primary { background: var(--primary); border-color: var(--primary); }
+    .btn--primary:hover:not(:disabled) { background: #e0611d; }
+    .btn--danger { color: #FF6B62; border-color: rgba(255, 88, 77, 0.35); }
+    .btn--danger:hover:not(:disabled) { background: rgba(255, 88, 77, 0.2); }
+
+    .sidebar {
+      background: #181A1F;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .inspector {
+      background: #181A1F;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9FA4B0;
+      margin-bottom: 8px;
+    }
+    .layout-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .layout-item {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .layout-item:hover { background: rgba(255,255,255,0.08); }
+    .layout-item.active {
+      background: rgba(243, 110, 37, 0.14);
+      border-color: var(--primary);
+    }
+    .layout-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .layout-item-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #9FA4B0;
+    }
+
+    .stage-wrap {
+      background: #101114;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+    .editor-canvas {
+      background: #FFFFFF;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+      border-radius: 8px;
+      overflow: hidden;
+      user-select: none;
+    }
+    .canvas-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .frame-node {
+      position: absolute;
+      cursor: move;
+      transform-origin: center center;
+    }
+    .frame-overall {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      border: 2px solid #242529;
+      background: rgba(36, 37, 41, 0.14);
+      transition: border-color 0.12s ease;
+    }
+    .frame-node.has-bezel .frame-overall {
+      background: rgba(36, 37, 41, 0.85);
+      border-color: #242529;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+    }
+    .frame-node.selected .frame-overall {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(243, 110, 37, 0.45);
+    }
+    .frame-screen {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px dashed var(--primary);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4px;
+      color: #242529;
+      pointer-events: none;
+    }
+    .frame-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .frame-dims {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: #606363;
+      margin-top: 2px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #9FA4B0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    input, select, textarea {
+      background: #111216;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 8px;
+      color: #FFFFFF;
+      padding: 7px 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .size-readout {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .size-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .size-row span:last-child { color: var(--primary); font-weight: 700; }
+    .lock-banner {
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .lock-banner--locked {
+      background: rgba(251, 201, 102, 0.14);
+      border: 1px solid rgba(251, 201, 102, 0.4);
+      color: #FBC966;
+    }
+    .lock-banner--unlocked {
+      background: rgba(107, 199, 133, 0.14);
+      border: 1px solid rgba(107, 199, 133, 0.4);
+      color: #6BC785;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #242529;
+      border: 1px solid var(--primary);
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="topbar-dot"></span>
+      <span>Portfolio Framer — Device Layout Editor</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn" id="btn-new-layout">+ New Layout</button>
+      <button class="btn" id="btn-dup-layout">Duplicate</button>
+      <button class="btn btn--danger" id="btn-del-layout">Delete</button>
+      <button class="btn btn--primary" id="btn-save-layout">Build &amp; Save Layout</button>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <div>
+      <div class="section-title">Saved Layouts</div>
+      <div class="layout-list" id="layout-list"></div>
+    </div>
+
+    <div class="field-group">
+      <div class="section-title">Layout Properties</div>
+      <label>Layout ID
+        <input id="inp-id" type="text" />
+      </label>
+      <label>Display Label
+        <input id="inp-label" type="text" />
+      </label>
+      <div class="field-row">
+        <label>Canvas W (px)
+          <input id="inp-cw" type="number" step="10" />
+        </label>
+        <label>Canvas H (px)
+          <input id="inp-ch" type="number" step="10" />
+        </label>
+      </div>
+      <label>Summary
+        <textarea id="inp-summary" rows="2"></textarea>
+      </label>
+      <label>Agent Guidance
+        <textarea id="inp-guidance" rows="3"></textarea>
+      </label>
+    </div>
+  </aside>
+
+  <main class="stage-wrap" id="stage-wrap">
+    <div class="editor-canvas" id="editor-canvas">
+      <div class="canvas-grid-bg"></div>
+    </div>
+  </main>
+
+  <aside class="inspector">
+    <div>
+      <div class="section-title">Add Device to Layout</div>
+      <div class="field-row">
+        <select id="sel-add-device">
+          <option value="iphone-17-pro">iPhone 17 Pro</option>
+          <option value="ipad-pro-m4-11-portrait">iPad Pro 11" Portrait</option>
+          <option value="ipad-pro-m4-11-landscape">iPad Pro 11" Landscape</option>
+          <option value="browser">Browser (16:9)</option>
+          <option value="app-icon">App Icon (Squircle)</option>
+        </select>
+        <button class="btn btn--primary" id="btn-add-frame">+ Add</button>
+      </div>
+    </div>
+
+    <div id="frame-inspector" style="display: none; flex-direction: column; gap: 14px;">
+      <div class="section-title">Selected Device Slot #<span id="slot-num">0</span></div>
+
+      <div id="bezel-lock-banner" class="lock-banner"></div>
+
+      <div class="size-readout">
+        <div class="size-row">
+          <span>Screen Size:</span>
+          <span id="readout-screen">—</span>
+        </div>
+        <div class="size-row">
+          <span>Overall Size:</span>
+          <span id="readout-overall">—</span>
+        </div>
+      </div>
+
+      <label>Device Type
+        <select id="inp-f-device">
+          <option value="iphone-17-pro">iPhone 17 Pro</option>
+          <option value="ipad-pro-m4-11-portrait">iPad Pro 11" Portrait</option>
+          <option value="ipad-pro-m4-11-landscape">iPad Pro 11" Landscape</option>
+          <option value="browser">Browser (16:9)</option>
+          <option value="app-icon">App Icon (Squircle)</option>
+          <option value="app-icon-circle">App Icon (Circle)</option>
+        </select>
+      </label>
+
+      <div class="field-row">
+        <label>Bezel State
+          <button class="btn" id="btn-toggle-bezel" type="button">Bezel: ON</button>
+        </label>
+        <label>Rotation
+          <select id="inp-f-rot">
+            <option value="0">0°</option>
+            <option value="90">90°</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="field-row">
+        <label>Screen X (px)
+          <input id="inp-f-x" type="number" />
+        </label>
+        <label>Screen Y (px)
+          <input id="inp-f-y" type="number" />
+        </label>
+      </div>
+
+      <label>Screen Width (px)
+        <input id="inp-f-w" type="number" min="80" />
+      </label>
+
+      <div class="field-row">
+        <button class="btn" id="btn-center-h" type="button">Center X</button>
+        <button class="btn" id="btn-center-v" type="button">Center Y</button>
+      </div>
+
+      <button class="btn btn--danger" id="btn-del-frame" type="button">Remove Device Slot</button>
+    </div>
+
+    <div id="no-selection-hint" style="font-size: 13px; color: #9FA4B0; line-height: 1.5;">
+      Click any device on the canvas to inspect its <strong>Screen Size</strong> vs. <strong>Overall Size</strong>, reposition it, or add new devices.
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Exact device geometry matching Posters/framer/mcp.mjs
+    const DEVICES = {
+      'iphone-17-pro': {
+        label: 'iPhone 17 Pro',
+        screenW: 1206, screenH: 2622,
+        frameW: 450, frameH: 920,
+        rect: { x: 24, y: 23, w: 402, h: 874 },
+        canBezel: true
+      },
+      'ipad-pro-m4-11-portrait': {
+        label: 'iPad Portrait',
+        screenW: 1668, screenH: 2420,
+        frameW: 940, frameH: 1320,
+        rect: { x: 53, y: 55, w: 834, h: 1210 },
+        canBezel: true
+      },
+      'ipad-pro-m4-11-landscape': {
+        label: 'iPad Landscape',
+        screenW: 2420, screenH: 1668,
+        frameW: 1320, frameH: 940,
+        rect: { x: 55, y: 53, w: 1210, h: 834 },
+        canBezel: true
+      },
+      'browser': {
+        label: 'Browser',
+        screenW: 1920, screenH: 1080,
+        frameW: 1960, frameH: 1174,
+        rect: { x: 20, y: 84, w: 1920, h: 1080 },
+        canBezel: true
+      },
+      'app-icon': {
+        label: 'App Icon',
+        screenW: 1024, screenH: 1024,
+        frameW: 1024, frameH: 1024,
+        rect: { x: 0, y: 0, w: 1024, h: 1024 },
+        canBezel: false
+      },
+      'app-icon-circle': {
+        label: 'App Icon (Circle)',
+        screenW: 1024, screenH: 1024,
+        frameW: 1024, frameH: 1024,
+        rect: { x: 0, y: 0, w: 1024, h: 1024 },
+        canBezel: false
+      }
+    };
+
+    let layouts = [];
+    let currentLayout = null;
+    let selectedSlotIdx = null;
+    let canvasScale = 1;
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    /**
+     * Computes BOTH Screen Size and Overall Size (larger when bezel is ON)
+     */
+    function computeMetrics(frame) {
+      const d = DEVICES[frame.deviceId] || DEVICES['iphone-17-pro'];
+      const screenW = frame.width;
+      const screenH = screenW * (d.screenH / d.screenW);
+      const hasBezel = d.canBezel && Boolean(frame.showDeviceFrame);
+
+      let padL = 0, padT = 0, overallW = screenW, overallH = screenH;
+      if (hasBezel) {
+        const scaleX = screenW / d.rect.w;
+        const scaleY = screenH / d.rect.h;
+        padL = d.rect.x * scaleX;
+        padT = d.rect.y * scaleY;
+        overallW = d.frameW * scaleX;
+        overallH = d.frameH * scaleY;
+      }
+      return { screenW, screenH, overallW, overallH, padL, padT, hasBezel };
+    }
+
+    async function loadLayouts() {
+      const resp = await fetch('/api/layouts');
+      layouts = await resp.json();
+      if (!currentLayout && layouts.length > 0) {
+        selectLayout(layouts[0]);
+      } else {
+        renderLayoutList();
+      }
+    }
+
+    function selectLayout(l) {
+      currentLayout = JSON.parse(JSON.stringify(l));
+      selectedSlotIdx = currentLayout.frames.length > 0 ? 0 : null;
+      syncLayoutFields();
+      renderLayoutList();
+      renderCanvas();
+      syncInspector();
+    }
+
+    function syncLayoutFields() {
+      if (!currentLayout) return;
+      document.getElementById('inp-id').value = currentLayout.id || '';
+      document.getElementById('inp-label').value = currentLayout.label || '';
+      document.getElementById('inp-cw').value = currentLayout.intrinsicWidth || 2400;
+      document.getElementById('inp-ch').value = currentLayout.intrinsicHeight || 2400;
+      document.getElementById('inp-summary').value = currentLayout.summary || '';
+      document.getElementById('inp-guidance').value = currentLayout.guidance || '';
+    }
+
+    function renderLayoutList() {
+      const list = document.getElementById('layout-list');
+      list.innerHTML = '';
+      layouts.forEach((l) => {
+        const div = document.createElement('div');
+        div.className = 'layout-item' + (currentLayout && currentLayout.id === l.id ? ' active' : '');
+        div.innerHTML = `
+          <div class="layout-item-top">
+            <span>${l.label || l.id}</span>
+            <span>${l.locked ? '🔒' : '🔓'}</span>
+          </div>
+          <div class="layout-item-meta">${l.id} • ${l.frames.length} slot(s) • ${l.intrinsicWidth}×${l.intrinsicHeight}</div>
+        `;
+        div.onclick = () => selectLayout(l);
+        list.appendChild(div);
+      });
+    }
+
+    function renderCanvas() {
+      const wrap = document.getElementById('stage-wrap');
+      const canvas = document.getElementById('editor-canvas');
+      if (!currentLayout) return;
+
+      const cw = currentLayout.intrinsicWidth || 2400;
+      const ch = currentLayout.intrinsicHeight || 2400;
+      const maxW = wrap.clientWidth - 56;
+      const maxH = wrap.clientHeight - 56;
+      canvasScale = Math.min(maxW / cw, maxH / ch, 1);
+
+      canvas.style.width = `${cw * canvasScale}px`;
+      canvas.style.height = `${ch * canvasScale}px`;
+
+      canvas.querySelectorAll('.frame-node').forEach((n) => n.remove());
+
+      currentLayout.frames.forEach((f, idx) => {
+        const m = computeMetrics(f);
+        const node = document.createElement('div');
+        node.className = 'frame-node' + (m.hasBezel ? ' has-bezel' : '') + (selectedSlotIdx === idx ? ' selected' : '');
+        // f.x, f.y are center coordinates in Portfolio Framer
+        node.style.left = `${(f.x - m.overallW / 2) * canvasScale}px`;
+        node.style.top = `${(f.y - m.overallH / 2) * canvasScale}px`;
+        node.style.width = `${m.overallW * canvasScale}px`;
+        node.style.height = `${m.overallH * canvasScale}px`;
+        node.style.transform = `rotate(${f.rotation || 0}deg)`;
+
+        const overallDiv = document.createElement('div');
+        overallDiv.className = 'frame-overall';
+
+        const screenDiv = document.createElement('div');
+        screenDiv.className = 'frame-screen';
+        screenDiv.style.left = `${m.padL * canvasScale}px`;
+        screenDiv.style.top = `${m.padT * canvasScale}px`;
+        screenDiv.style.width = `${m.screenW * canvasScale}px`;
+        screenDiv.style.height = `${m.screenH * canvasScale}px`;
+        screenDiv.innerHTML = `
+          <div class="frame-label">#${idx + 1} ${DEVICES[f.deviceId]?.label || f.deviceId}</div>
+          <div class="frame-dims">Scr: ${Math.round(m.screenW)}×${Math.round(m.screenH)}<br/>All: ${Math.round(m.overallW)}×${Math.round(m.overallH)}</div>
+        `;
+
+        node.appendChild(overallDiv);
+        node.appendChild(screenDiv);
+
+        node.addEventListener('mousedown', (e) => {
+          e.stopPropagation();
+          selectedSlotIdx = idx;
+          renderCanvas();
+          syncInspector();
+
+          const startX = e.clientX;
+          const startY = e.clientY;
+          const origX = f.x;
+          const origY = f.y;
+
+          const onMove = (me) => {
+            f.x = Math.round(origX + (me.clientX - startX) / canvasScale);
+            f.y = Math.round(origY + (me.clientY - startY) / canvasScale);
+            renderCanvas();
+            syncInspector();
+          };
+          const onUp = () => {
+            window.removeEventListener('mousemove', onMove);
+            window.removeEventListener('mouseup', onUp);
+          };
+          window.addEventListener('mousemove', onMove);
+          window.addEventListener('mouseup', onUp);
+        });
+
+        canvas.appendChild(node);
+      });
+    }
+
+    function syncInspector() {
+      const insp = document.getElementById('frame-inspector');
+      const hint = document.getElementById('no-selection-hint');
+      if (!currentLayout || selectedSlotIdx === null || !currentLayout.frames[selectedSlotIdx]) {
+        insp.style.display = 'none';
+        hint.style.display = 'block';
+        return;
+      }
+      insp.style.display = 'flex';
+      hint.style.display = 'none';
+
+      const f = currentLayout.frames[selectedSlotIdx];
+      const m = computeMetrics(f);
+      document.getElementById('slot-num').textContent = selectedSlotIdx + 1;
+      document.getElementById('readout-screen').textContent = `${Math.round(m.screenW)} × ${Math.round(m.screenH)} px`;
+      document.getElementById('readout-overall').textContent = `${Math.round(m.overallW)} × ${Math.round(m.overallH)} px`;
+      document.getElementById('inp-f-device').value = f.deviceId;
+      document.getElementById('inp-f-rot').value = String(f.rotation || 0);
+      document.getElementById('inp-f-x').value = f.x;
+      document.getElementById('inp-f-y').value = f.y;
+      document.getElementById('inp-f-w').value = f.width;
+
+      const bezelBtn = document.getElementById('btn-toggle-bezel');
+      const banner = document.getElementById('bezel-lock-banner');
+      const isLocked = Boolean(currentLayout.locked);
+      const canBezel = DEVICES[f.deviceId]?.canBezel;
+
+      bezelBtn.textContent = `Bezel: ${m.hasBezel ? 'ON' : 'OFF'}`;
+      bezelBtn.disabled = isLocked || !canBezel;
+
+      if (isLocked) {
+        banner.className = 'lock-banner lock-banner--locked';
+        banner.textContent = '🔒 Bezel locked: This layout is already built. Duplicate it to build a variant with different bezels.';
+      } else {
+        banner.className = 'lock-banner lock-banner--unlocked';
+        banner.textContent = '🔓 Draft mode: Toggle Bezel ON/OFF freely—Overall Size updates live before saving.';
+      }
+    }
+
+    // Event Bindings
+    ['inp-id', 'inp-label', 'inp-cw', 'inp-ch', 'inp-summary', 'inp-guidance'].forEach((id) => {
+      document.getElementById(id).addEventListener('input', () => {
+        if (!currentLayout) return;
+        currentLayout.id = document.getElementById('inp-id').value.trim();
+        currentLayout.label = document.getElementById('inp-label').value;
+        currentLayout.intrinsicWidth = Number(document.getElementById('inp-cw').value) || 2400;
+        currentLayout.intrinsicHeight = Number(document.getElementById('inp-ch').value) || 2400;
+        currentLayout.summary = document.getElementById('inp-summary').value;
+        currentLayout.guidance = document.getElementById('inp-guidance').value;
+        renderCanvas();
+      });
+    });
+
+    document.getElementById('btn-add-frame').onclick = () => {
+      if (!currentLayout) return;
+      const devId = document.getElementById('sel-add-device').value;
+      const defaultW = devId.includes('ipad') ? 900 : devId === 'browser' ? 1400 : 402;
+      currentLayout.frames.push({
+        deviceId: devId,
+        x: Math.round((currentLayout.intrinsicWidth - defaultW) / 2),
+        y: Math.round(currentLayout.intrinsicHeight * 0.2),
+        width: defaultW,
+        rotation: 0,
+        showDeviceFrame: DEVICES[devId]?.canBezel ? true : false
+      });
+      selectedSlotIdx = currentLayout.frames.length - 1;
+      renderCanvas();
+      syncInspector();
+    };
+
+    document.getElementById('btn-toggle-bezel').onclick = () => {
+      if (!currentLayout || currentLayout.locked || selectedSlotIdx === null) return;
+      const f = currentLayout.frames[selectedSlotIdx];
+      f.showDeviceFrame = !f.showDeviceFrame;
+      renderCanvas();
+      syncInspector();
+    };
+
+    ['inp-f-device', 'inp-f-rot', 'inp-f-x', 'inp-f-y', 'inp-f-w'].forEach((id) => {
+      document.getElementById(id).addEventListener('input', () => {
+        if (!currentLayout || selectedSlotIdx === null) return;
+        const f = currentLayout.frames[selectedSlotIdx];
+        f.deviceId = document.getElementById('inp-f-device').value;
+        f.rotation = Number(document.getElementById('inp-f-rot').value) || 0;
+        f.x = Number(document.getElementById('inp-f-x').value) || 0;
+        f.y = Number(document.getElementById('inp-f-y').value) || 0;
+        f.width = Math.max(80, Number(document.getElementById('inp-f-w').value) || 400);
+        renderCanvas();
+        syncInspector();
+      });
+    });
+
+    document.getElementById('btn-center-h').onclick = () => {
+      if (!currentLayout || selectedSlotIdx === null) return;
+      const f = currentLayout.frames[selectedSlotIdx];
+      f.x = Math.round(currentLayout.intrinsicWidth / 2);
+      renderCanvas();
+      syncInspector();
+    };
+
+    document.getElementById('btn-center-v').onclick = () => {
+      if (!currentLayout || selectedSlotIdx === null) return;
+      const f = currentLayout.frames[selectedSlotIdx];
+      f.y = Math.round(currentLayout.intrinsicHeight / 2);
+      renderCanvas();
+      syncInspector();
+    };
+
+    document.getElementById('btn-del-frame').onclick = () => {
+      if (!currentLayout || selectedSlotIdx === null) return;
+      currentLayout.frames.splice(selectedSlotIdx, 1);
+      selectedSlotIdx = currentLayout.frames.length > 0 ? 0 : null;
+      renderCanvas();
+      syncInspector();
+    };
+
+    document.getElementById('btn-new-layout').onclick = () => {
+      const draft = {
+        id: `custom-${Date.now().toString().slice(-4)}`,
+        label: 'New Custom Layout',
+        intrinsicWidth: 1968,
+        intrinsicHeight: 1100,
+        purposes: ['feature'],
+        summary: 'Custom device composition.',
+        guidance: 'Use for custom product showcase frames.',
+        locked: false,
+        frames: [
+          { deviceId: 'iphone-17-pro', x: 783, y: 113, width: 402, rotation: 0, showDeviceFrame: true }
+        ]
+      };
+      selectLayout(draft);
+      showToast('Created unlocked draft — toggle bezels freely, then Build & Save.');
+    };
+
+    document.getElementById('btn-dup-layout').onclick = () => {
+      if (!currentLayout) return;
+      const copy = JSON.parse(JSON.stringify(currentLayout));
+      copy.id = `${currentLayout.id}-copy`;
+      copy.label = `${currentLayout.label} (Copy)`;
+      copy.locked = false;
+      selectLayout(copy);
+      showToast('Duplicated as unlocked draft — bezels can now be edited.');
+    };
+
+    document.getElementById('btn-save-layout').onclick = async () => {
+      if (!currentLayout || !currentLayout.id) return;
+      const resp = await fetch('/api/layouts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentLayout)
+      });
+      const data = await resp.json();
+      if (data.ok) {
+        layouts = data.layouts;
+        currentLayout.locked = true;
+        renderLayoutList();
+        syncInspector();
+        showToast(`Built & locked layout "${currentLayout.id}"!`);
+      }
+    };
+
+    document.getElementById('btn-del-layout').onclick = async () => {
+      if (!currentLayout || !currentLayout.id) return;
+      const resp = await fetch(`/api/layouts/${encodeURIComponent(currentLayout.id)}`, { method: 'DELETE' });
+      const data = await resp.json();
+      if (data.ok) {
+        layouts = data.layouts;
+        currentLayout = null;
+        if (layouts.length > 0) selectLayout(layouts[0]);
+        else { renderLayoutList(); renderCanvas(); syncInspector(); }
+        showToast('Deleted layout.');
+      }
+    };
+
+    window.addEventListener('resize', renderCanvas);
+    loadLayouts();
+  </script>
+</body>
+</html>

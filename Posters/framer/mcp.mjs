@@ -519,17 +519,66 @@ async function composeToPng(spec, opts) {
 }
 
 // server/mcp.ts
-var DIST_DIR = process.env.FRAMER_DIST ?? path3.resolve(path3.dirname(fileURLToPath(import.meta.url)), "../dist");
+var DIST_DIR = process.env.FRAMER_DIST ?? path3.resolve(path3.dirname(fileURLToPath(import.meta.url)), "dist");
+var LAYOUTS_JSON = path3.resolve(path3.dirname(fileURLToPath(import.meta.url)), "layouts.json");
+
+function readLayoutsStore() {
+  try {
+    if (fs3.existsSync(LAYOUTS_JSON)) {
+      const parsed = JSON.parse(fs3.readFileSync(LAYOUTS_JSON, "utf8"));
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return LAYOUTS.map((l) => ({
+    ...l,
+    ...(LAYOUT_META[l.id] ?? DEFAULT_META),
+    locked: true,
+    frames: l.frames.map((f) => ({ ...f, showDeviceFrame: f.deviceId !== "app-icon" && f.deviceId !== "app-icon-circle" }))
+  }));
+}
+
+function describeDynamicLayouts() {
+  return readLayoutsStore().map((layout) => {
+    const slots = layout.frames.map((f, index) => {
+      const kind = getDevice(f.deviceId).kind;
+      return {
+        index,
+        deviceId: f.deviceId,
+        kind,
+        isBranding: kind === "icon",
+        showDeviceFrame: typeof f.showDeviceFrame === "boolean" ? f.showDeviceFrame : kind !== "icon"
+      };
+    });
+    const content = slots.filter((s) => !s.isBranding);
+    const slotKinds = Array.from(new Set(content.map((s) => s.kind)));
+    const slotCount = content.length;
+    const density = slotCount <= 1 ? "single" : slotCount === 2 ? "pair" : "dense";
+    return {
+      id: layout.id,
+      label: layout.label,
+      purposes: layout.purposes || ["gallery"],
+      summary: layout.summary || "",
+      guidance: layout.guidance || "",
+      slots,
+      slotCount,
+      slotKinds,
+      hasBrandingSlot: slots.some((s) => s.isBranding),
+      orientation: orientationOf(layout.intrinsicWidth, layout.intrinsicHeight),
+      density
+    };
+  });
+}
+
 var server = new McpServer({ name: "portfolio-framer", version: "1.0.0" });
 server.registerTool(
   "list_layouts",
   {
     title: "List layouts",
-    description: 'Lists every available portfolio layout with its purpose, guidance, slot count, device kinds, and whether it has an app-icon centerpiece. Use this to choose a layout for a section (e.g. a dense "cover" mosaic vs a single-frame "feature" hero).',
+    description: 'Lists every available portfolio layout with its purpose, guidance, slot count, device kinds, and locked bezel states. Use this to choose a layout for a section.',
     inputSchema: {}
   },
   async () => ({
-    content: [{ type: "text", text: JSON.stringify(describeLayouts(), null, 2) }]
+    content: [{ type: "text", text: JSON.stringify(describeDynamicLayouts(), null, 2) }]
   })
 );
 var specShape = {
@@ -543,22 +592,24 @@ var specShape = {
   slots: z.array(
     z.object({
       screenshot: z.string().optional().describe("File path or data URI."),
-      showDeviceFrame: z.boolean().optional(),
       hiddenAccessories: z.array(z.string()).optional(),
       lightAccessories: z.boolean().optional()
     })
-  ).describe("Per-frame content, indexed to the layout\u2019s frames."),
+  ).describe("Per-frame content, indexed to the layout\u2019s frames (bezel is locked by the layout)."),
   exportScale: z.union([z.literal(1), z.literal(2), z.literal(4)])
 };
 server.registerTool(
   "compose",
   {
     title: "Compose a framed image",
-    description: "Renders a CompositionSpec (a layout + per-frame screenshots + background + export scale) to a PNG and saves it to `out`. Screenshots may be file paths (e.g. from capture_url) or data URIs. Returns the saved path.",
+    description: "Renders a CompositionSpec (a layout + per-frame screenshots + background + export scale) to a PNG and saves it to `out`. Bezel visibility is locked per slot in layouts.json.",
     inputSchema: { spec: z.object(specShape), out: z.string() }
   },
   async ({ spec, out }) => {
-    const png = await composeToPng(spec, { distDir: DIST_DIR });
+    const store = readLayoutsStore();
+    const layout = store.find((l) => l.id === spec.layoutId) ?? store[0];
+    const enrichedSpec = { ...spec, customLayout: layout };
+    const png = await composeToPng(enrichedSpec, { distDir: DIST_DIR });
     fs3.mkdirSync(path3.dirname(out), { recursive: true });
     fs3.writeFileSync(out, png);
     return {
