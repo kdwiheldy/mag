@@ -81,6 +81,8 @@ Every slide (`<section class="poster-canvas">`) MUST obey these exact dimensions
 5. **JSON Contract Blocks (`.json-contract-card` + `.json-code-box`):**
    - Outer container: `.json-contract-card` (`#F0F0F0`, `2px solid #EAEAEA`, `rounded: 36px`, `p: 24px`).
    - Inner code box: `.json-code-box` (`#FFFFFF`, `1.5px dashed #242529`, `rounded: 36px`, `p: 24px`, `24px Geist Mono SemiBold`, keys in `.json-key` `#6BC785`, types in `.json-type` `#FF584D`).
+6. **Flexible Fonts & Brand Colors (Not Fixed):**
+   - `Inter` and `Geist Mono` are only the defaults. Any slide or project can load its own fonts (via Google Fonts `<link>` or `@font-face`) and override `--font-sans`, `--font-display` (for headlines/card titles), `--font-mono`, and `--primary` / `--primary-tint` on `.poster-canvas`.
 
 ---
 

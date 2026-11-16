@@ -68,8 +68,9 @@
 
   --neutral-tint: rgba(96, 99, 99, 0.10);
 
-  /* Typography Families */
+  /* Typography Families (Overridable per slide/project via --font-sans, --font-display, --font-mono) */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-sans);
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Type Scale Sizes & Line Heights */
@@ -306,7 +307,7 @@ body {
 }
 
 .poster-brand-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: var(--fs-title);
   font-weight: 600;
   line-height: var(--lh-title);
@@ -335,7 +336,7 @@ body {
 }
 
 .poster-meta-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: var(--fs-title);
   font-weight: 600;
   line-height: var(--lh-title);
@@ -601,7 +602,7 @@ body {
 }
 
 .card-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: var(--fs-title);
   font-weight: 600;
   line-height: var(--lh-title);
@@ -611,7 +612,7 @@ body {
 
 /* Marketing Hero Display Typography & CTA Pill (Social Feed / Launch Covers) */
 .hero-headline {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: 76px;
   font-weight: 600;
   line-height: 1.08;
@@ -914,7 +915,7 @@ body {
 }
 
 .stat-value--dark {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   color: var(--text-primary);
 }
 
