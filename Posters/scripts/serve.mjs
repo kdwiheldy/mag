@@ -17,6 +17,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const framerPkg = path.join(rootDir, 'framer/package.json');
 const layoutsJsonPath = path.join(rootDir, 'framer/layouts.json');
+const devicesJsonPath = path.join(rootDir, 'framer/devices.json');
 const port = Number(process.argv[2] || 4173);
 
 const MIME = {
@@ -72,6 +73,66 @@ async function exportPagePngs(pageUrl) {
 http
   .createServer(async (req, res) => {
     const reqPath = decodeURIComponent((req.url || '/').split('?')[0]);
+
+    if (req.method === 'GET' && reqPath === '/api/devices') {
+      try {
+        const appleDevices = fs.existsSync(devicesJsonPath)
+          ? JSON.parse(fs.readFileSync(devicesJsonPath, 'utf8'))
+          : [];
+        const fallbackDevices = [
+          {
+            id: 'ipad-pro-m4-11-portrait',
+            name: 'iPad Pro 11" (M4) Portrait',
+            kind: 'tablet',
+            screenW: 1668,
+            screenH: 2420,
+            frameNativeW: 940,
+            frameNativeH: 1320,
+            screenRect: { x: 53, y: 55, w: 834, h: 1210 },
+          },
+          {
+            id: 'ipad-pro-m4-11-landscape',
+            name: 'iPad Pro 11" (M4) Landscape',
+            kind: 'tablet',
+            screenW: 2420,
+            screenH: 1668,
+            frameNativeW: 1320,
+            frameNativeH: 940,
+            screenRect: { x: 55, y: 53, w: 1210, h: 834 },
+          },
+          {
+            id: 'browser',
+            name: 'Browser (16:9)',
+            kind: 'browser',
+            screenW: 1512,
+            screenH: 949,
+            frameNativeW: 1552,
+            frameNativeH: 1053,
+            screenRect: { x: 20, y: 84, w: 1512, h: 949 },
+          },
+          {
+            id: 'app-icon',
+            name: 'App Icon',
+            kind: 'icon',
+            screenW: 1024,
+            screenH: 1024,
+            frameNativeW: 1024,
+            frameNativeH: 1024,
+            screenRect: { x: 0, y: 0, w: 1024, h: 1024 },
+          },
+        ];
+        const byId = new Map();
+        for (const d of [...appleDevices, ...fallbackDevices]) {
+          if (!byId.has(d.id)) byId.set(d.id, d);
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(Array.from(byId.values())));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
 
     if (req.method === 'GET' && reqPath === '/api/layouts') {
       try {
@@ -160,7 +221,9 @@ http
     }
 
     const safePath = path.normalize(reqPath).replace(/^(\.\.[/\\])+/, '');
-    let filePath = path.join(rootDir, safePath === '/' ? 'template-social-portrait.html' : safePath);
+    let filePath = reqPath.startsWith('/bezels/')
+      ? path.join(rootDir, 'framer/dist', safePath)
+      : path.join(rootDir, safePath === '/' ? 'template-social-portrait.html' : safePath);
     if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
       filePath = path.join(filePath, 'index.html');
     }

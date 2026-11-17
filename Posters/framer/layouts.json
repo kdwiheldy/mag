@@ -446,5 +446,108 @@
         "showDeviceFrame": true
       }
     ]
+  },
+  {
+    "id": "mix-masonry-3",
+    "label": "Mixed Masonry 3",
+    "intrinsicWidth": 2400,
+    "intrinsicHeight": 2400,
+    "purposes": [
+      "cover",
+      "gallery"
+    ],
+    "summary": "Dense branded collage of iPhone and iPad screens around a center app icon.",
+    "guidance": "A portfolio/project cover for products that span iPhone and iPad. The app icon is the hero. Needs several varied screenshots to fill it; not for a single feature.",
+    "locked": true,
+    "frames": [
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1231,
+        "y": 258,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 1844,
+        "y": 1530,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": -100,
+        "y": 2142,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 872,
+        "y": 1843,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 259,
+        "y": 137,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "app-icon",
+        "x": 1201,
+        "y": 1200,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": false
+      },
+      {
+        "deviceId": "ipad-pro-m5-11-landscape",
+        "x": 190,
+        "y": 990,
+        "width": 1200,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "ipad-pro-m5-11-landscape",
+        "x": 2272,
+        "y": 377,
+        "width": 1200,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "ipad-pro-m5-11-landscape",
+        "x": 941,
+        "y": 2696,
+        "width": 1200,
+        "rotation": 0,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2281,
+        "y": 2502,
+        "width": 512,
+        "rotation": 90,
+        "showDeviceFrame": true
+      },
+      {
+        "deviceId": "iphone-17-pro",
+        "x": 2517,
+        "y": 1529,
+        "width": 512,
+        "rotation": 0,
+        "showDeviceFrame": true
+      }
+    ]
   }
 ]

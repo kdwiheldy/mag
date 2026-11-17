@@ -127,15 +127,15 @@
     .stage-wrap {
       background: #101114;
       display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 28px;
-      overflow: hidden;
+      overflow: auto;
       position: relative;
     }
     .editor-canvas {
       background: #FFFFFF;
       position: relative;
+      margin: auto;
+      flex-shrink: 0;
       box-shadow: 0 24px 64px rgba(0,0,0,0.55);
       border-radius: 8px;
       overflow: hidden;
@@ -197,6 +197,78 @@
       font-size: 9px;
       color: #606363;
       margin-top: 2px;
+    }
+
+    /* Figma-style Option/Alt distance measurement overlay */
+    .measure-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    .measure-target-box {
+      position: absolute;
+      border: 1.5px solid #F24822;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .measure-line-h {
+      position: absolute;
+      height: 1px;
+      background: #F24822;
+      transform: translateY(-0.5px);
+    }
+    .measure-line-h::before,
+    .measure-line-h::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      width: 1px;
+      height: 7px;
+      background: #F24822;
+    }
+    .measure-line-h::before { left: 0; }
+    .measure-line-h::after { right: 0; }
+    .measure-line-v {
+      position: absolute;
+      width: 1px;
+      background: #F24822;
+      transform: translateX(-0.5px);
+    }
+    .measure-line-v::before,
+    .measure-line-v::after {
+      content: '';
+      position: absolute;
+      left: -3px;
+      width: 7px;
+      height: 1px;
+      background: #F24822;
+    }
+    .measure-line-v::before { top: 0; }
+    .measure-line-v::after { bottom: 0; }
+    .measure-ext-h {
+      position: absolute;
+      height: 0;
+      border-top: 1px dashed rgba(242, 72, 34, 0.65);
+    }
+    .measure-ext-v {
+      position: absolute;
+      width: 0;
+      border-left: 1px dashed rgba(242, 72, 34, 0.65);
+    }
+    .measure-pill {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      background: #F24822;
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 3px 5px;
+      border-radius: 4px;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
     }
 
     .field-group {
@@ -290,6 +362,11 @@
       <span>Portfolio Framer — Device Layout Editor</span>
     </div>
     <div class="topbar-actions">
+      <button class="btn" id="btn-zoom-out" title="Zoom Out (⌘- / Ctrl+-)">−</button>
+      <button class="btn" id="btn-zoom-reset" title="Reset Zoom to Fit (⌘0 / Ctrl+0)" style="min-width:62px;">100%</button>
+      <button class="btn" id="btn-zoom-in" title="Zoom In (⌘+ / Ctrl++)">+</button>
+      <button class="btn" id="btn-undo" title="Undo (⌘Z / Ctrl+Z)" disabled>↶ Undo</button>
+      <button class="btn" id="btn-redo" title="Redo (⌘⇧Z / Ctrl+Y)" disabled>↷ Redo</button>
       <button class="btn" id="btn-new-layout">+ New Layout</button>
       <button class="btn" id="btn-dup-layout">Duplicate</button>
       <button class="btn btn--danger" id="btn-del-layout">Delete</button>
@@ -328,9 +405,10 @@
     </div>
   </aside>
 
-  <main class="stage-wrap" id="stage-wrap">
+  <main class="stage-wrap" id="stage-wrap" style="position:relative;">
     <div class="editor-canvas" id="editor-canvas">
       <div class="canvas-grid-bg"></div>
+      <div class="measure-overlay" id="measure-overlay"></div>
     </div>
   </main>
 
@@ -406,6 +484,11 @@
         <button class="btn" id="btn-center-v" type="button">Center Y</button>
       </div>
 
+      <div class="field-row">
+        <button class="btn" id="btn-copy-frame" type="button" title="Copy Device (⌘C / Ctrl+C)">Copy Device</button>
+        <button class="btn" id="btn-paste-frame" type="button" title="Paste Device (⌘V / Ctrl+V)" disabled>Paste Device</button>
+      </div>
+
       <button class="btn btn--danger" id="btn-del-frame" type="button">Remove Device Slot</button>
     </div>
 
@@ -467,6 +550,86 @@
     let currentLayout = null;
     let selectedSlotIdx = null;
     let canvasScale = 1;
+    let zoomFactor = 1;
+    let copiedFrame = null;
+    let pasteCount = 0;
+    let history = [];
+    let historyIdx = -1;
+
+    function setZoom(nextZoom) {
+      zoomFactor = Math.min(4, Math.max(0.25, Math.round(nextZoom * 100) / 100));
+      const btn = document.getElementById('btn-zoom-reset');
+      if (btn) btn.textContent = `${Math.round(zoomFactor * 100)}%`;
+      renderCanvas();
+    }
+
+    function copySelectedFrame() {
+      if (!currentLayout || selectedSlotIdx === null || !currentLayout.frames[selectedSlotIdx]) return;
+      copiedFrame = JSON.parse(JSON.stringify(currentLayout.frames[selectedSlotIdx]));
+      pasteCount = 0;
+      const btnPaste = document.getElementById('btn-paste-frame');
+      if (btnPaste) btnPaste.disabled = false;
+      showToast(`Copied #${selectedSlotIdx + 1} ${DEVICES[copiedFrame.deviceId]?.label || copiedFrame.deviceId}`);
+    }
+
+    function pasteFrame() {
+      if (!currentLayout || !copiedFrame) return;
+      pasteCount += 1;
+      const clone = JSON.parse(JSON.stringify(copiedFrame));
+      clone.x = Math.round((clone.x || 0) + 40 * pasteCount);
+      clone.y = Math.round((clone.y || 0) + 40 * pasteCount);
+      currentLayout.frames.push(clone);
+      selectedSlotIdx = currentLayout.frames.length - 1;
+      renderCanvas();
+      syncInspector();
+      pushHistory();
+      showToast(`Pasted ${DEVICES[clone.deviceId]?.label || clone.deviceId}`);
+    }
+
+    function syncUndoRedoButtons() {
+      const btnU = document.getElementById('btn-undo');
+      const btnR = document.getElementById('btn-redo');
+      if (btnU) btnU.disabled = historyIdx <= 0;
+      if (btnR) btnR.disabled = historyIdx < 0 || historyIdx >= history.length - 1;
+    }
+
+    function resetHistory() {
+      history = currentLayout ? [JSON.stringify(currentLayout)] : [];
+      historyIdx = history.length - 1;
+      syncUndoRedoButtons();
+    }
+
+    function pushHistory() {
+      if (!currentLayout) return;
+      const snap = JSON.stringify(currentLayout);
+      if (historyIdx >= 0 && history[historyIdx] === snap) return;
+      history = history.slice(0, historyIdx + 1);
+      history.push(snap);
+      if (history.length > 100) history.shift();
+      historyIdx = history.length - 1;
+      syncUndoRedoButtons();
+    }
+
+    function applyHistoryAt(idx) {
+      if (idx < 0 || idx >= history.length) return;
+      historyIdx = idx;
+      currentLayout = JSON.parse(history[historyIdx]);
+      if (selectedSlotIdx !== null && (!currentLayout.frames || selectedSlotIdx >= currentLayout.frames.length)) {
+        selectedSlotIdx = currentLayout.frames.length > 0 ? 0 : null;
+      }
+      syncLayoutFields();
+      renderCanvas();
+      syncInspector();
+      syncUndoRedoButtons();
+    }
+
+    function undo() {
+      if (historyIdx > 0) applyHistoryAt(historyIdx - 1);
+    }
+
+    function redo() {
+      if (historyIdx < history.length - 1) applyHistoryAt(historyIdx + 1);
+    }
 
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -496,7 +659,65 @@
       return { screenW, screenH, overallW, overallH, padL, padT, hasBezel };
     }
 
+    async function loadDevices() {
+      try {
+        const resp = await fetch('/api/devices');
+        const list = await resp.json();
+        if (Array.isArray(list)) {
+          for (const d of list) {
+            DEVICES[d.id] = {
+              label: d.name || d.id,
+              kind: d.kind || 'other',
+              screenW: d.screenW,
+              screenH: d.screenH,
+              frameW: d.frameNativeW || d.screenW,
+              frameH: d.frameNativeH || d.screenH,
+              rect: d.screenRect || { x: 0, y: 0, w: d.screenW, h: d.screenH },
+              frameImage: d.frameImage || null,
+              canBezel: d.kind !== 'icon' && d.kind !== 'shape'
+            };
+          }
+        }
+      } catch (e) {
+        console.warn('Could not load /api/devices, using built-in defaults', e);
+      }
+      populateDeviceSelects();
+    }
+
+    function populateDeviceSelects() {
+      const groups = [
+        ['iPhone', (id, d) => d.kind === 'phone'],
+        ['iPad', (id, d) => d.kind === 'tablet'],
+        ['MacBook', (id, d) => d.kind === 'laptop'],
+        ['Desktop & Display', (id, d) => d.kind === 'desktop'],
+        ['Apple Watch', (id, d) => d.kind === 'watch'],
+        ['Apple TV', (id, d) => d.kind === 'tv'],
+        ['Browser & Icons', (id, d) => !['phone','tablet','laptop','desktop','watch','tv'].includes(d.kind)]
+      ];
+      for (const selId of ['sel-add-device', 'inp-f-device']) {
+        const sel = document.getElementById(selId);
+        if (!sel) continue;
+        const prev = sel.value;
+        sel.innerHTML = '';
+        for (const [groupLabel, pred] of groups) {
+          const entries = Object.entries(DEVICES).filter(([id, d]) => pred(id, d));
+          if (!entries.length) continue;
+          const og = document.createElement('optgroup');
+          og.label = groupLabel;
+          for (const [id, d] of entries) {
+            const opt = document.createElement('option');
+            opt.value = id;
+            opt.textContent = d.label;
+            og.appendChild(opt);
+          }
+          sel.appendChild(og);
+        }
+        if (prev && DEVICES[prev]) sel.value = prev;
+      }
+    }
+
     async function loadLayouts() {
+      await loadDevices();
       const resp = await fetch('/api/layouts');
       layouts = await resp.json();
       if (!currentLayout && layouts.length > 0) {
@@ -509,6 +730,7 @@
     function selectLayout(l) {
       currentLayout = JSON.parse(JSON.stringify(l));
       selectedSlotIdx = currentLayout.frames.length > 0 ? 0 : null;
+      resetHistory();
       syncLayoutFields();
       renderLayoutList();
       renderCanvas();
@@ -552,7 +774,8 @@
       const ch = currentLayout.intrinsicHeight || 2400;
       const maxW = wrap.clientWidth - 56;
       const maxH = wrap.clientHeight - 56;
-      canvasScale = Math.min(maxW / cw, maxH / ch, 1);
+      const fitScale = Math.min(maxW / cw, maxH / ch, 1);
+      canvasScale = fitScale * zoomFactor;
 
       canvas.style.width = `${cw * canvasScale}px`;
       canvas.style.height = `${ch * canvasScale}px`;
@@ -572,6 +795,16 @@
 
         const overallDiv = document.createElement('div');
         overallDiv.className = 'frame-overall';
+        const dev = DEVICES[f.deviceId];
+        if (m.hasBezel && dev?.frameImage) {
+          overallDiv.style.background = 'transparent';
+          overallDiv.style.borderColor = 'transparent';
+          const img = document.createElement('img');
+          img.src = dev.frameImage;
+          img.draggable = false;
+          img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;';
+          overallDiv.appendChild(img);
+        }
 
         const screenDiv = document.createElement('div');
         screenDiv.className = 'frame-screen';
@@ -607,6 +840,7 @@
           const onUp = () => {
             window.removeEventListener('mousemove', onMove);
             window.removeEventListener('mouseup', onUp);
+            if (f.x !== origX || f.y !== origY) pushHistory();
           };
           window.addEventListener('mousemove', onMove);
           window.addEventListener('mouseup', onUp);
@@ -614,6 +848,7 @@
 
         canvas.appendChild(node);
       });
+      renderMeasureGuides();
     }
 
     function syncInspector() {
@@ -656,6 +891,9 @@
     }
 
     // Event Bindings
+    document.getElementById('btn-undo').onclick = undo;
+    document.getElementById('btn-redo').onclick = redo;
+
     ['inp-id', 'inp-label', 'inp-cw', 'inp-ch', 'inp-summary', 'inp-guidance'].forEach((id) => {
       document.getElementById(id).addEventListener('input', () => {
         if (!currentLayout) return;
@@ -666,24 +904,27 @@
         currentLayout.summary = document.getElementById('inp-summary').value;
         currentLayout.guidance = document.getElementById('inp-guidance').value;
         renderCanvas();
+        pushHistory();
       });
     });
 
     document.getElementById('btn-add-frame').onclick = () => {
       if (!currentLayout) return;
       const devId = document.getElementById('sel-add-device').value;
-      const defaultW = devId.includes('ipad') ? 900 : devId === 'browser' ? 1400 : 402;
+      const dev = DEVICES[devId];
+      const defaultW = dev?.kind === 'tablet' ? 900 : ['laptop', 'desktop', 'tv', 'browser'].includes(dev?.kind) ? 1400 : dev?.kind === 'watch' ? 280 : 402;
       currentLayout.frames.push({
         deviceId: devId,
-        x: Math.round((currentLayout.intrinsicWidth - defaultW) / 2),
-        y: Math.round(currentLayout.intrinsicHeight * 0.2),
+        x: Math.round(currentLayout.intrinsicWidth / 2),
+        y: Math.round(currentLayout.intrinsicHeight / 2),
         width: defaultW,
         rotation: 0,
-        showDeviceFrame: DEVICES[devId]?.canBezel ? true : false
+        showDeviceFrame: dev?.canBezel ? true : false
       });
       selectedSlotIdx = currentLayout.frames.length - 1;
       renderCanvas();
       syncInspector();
+      pushHistory();
     };
 
     document.getElementById('btn-toggle-bezel').onclick = () => {
@@ -692,6 +933,7 @@
       f.showDeviceFrame = !f.showDeviceFrame;
       renderCanvas();
       syncInspector();
+      pushHistory();
     };
 
     ['inp-f-device', 'inp-f-rot', 'inp-f-x', 'inp-f-y', 'inp-f-w'].forEach((id) => {
@@ -705,6 +947,7 @@
         f.width = Math.max(80, Number(document.getElementById('inp-f-w').value) || 400);
         renderCanvas();
         syncInspector();
+        pushHistory();
       });
     });
 
@@ -714,6 +957,7 @@
       f.x = Math.round(currentLayout.intrinsicWidth / 2);
       renderCanvas();
       syncInspector();
+      pushHistory();
     };
 
     document.getElementById('btn-center-v').onclick = () => {
@@ -722,6 +966,7 @@
       f.y = Math.round(currentLayout.intrinsicHeight / 2);
       renderCanvas();
       syncInspector();
+      pushHistory();
     };
 
     document.getElementById('btn-del-frame').onclick = () => {
@@ -730,6 +975,7 @@
       selectedSlotIdx = currentLayout.frames.length > 0 ? 0 : null;
       renderCanvas();
       syncInspector();
+      pushHistory();
     };
 
     document.getElementById('btn-new-layout').onclick = () => {
@@ -789,6 +1035,302 @@
         showToast('Deleted layout.');
       }
     };
+
+    let lastPointer = null;
+    let isAltPressed = false;
+
+    function getFrameAABB(f) {
+      const m = computeMetrics(f);
+      const rad = ((f.rotation || 0) * Math.PI) / 180;
+      const cos = Math.abs(Math.cos(rad));
+      const sin = Math.abs(Math.sin(rad));
+      const w = m.overallW * cos + m.overallH * sin;
+      const h = m.overallW * sin + m.overallH * cos;
+      return {
+        left: f.x - w / 2,
+        right: f.x + w / 2,
+        top: f.y - h / 2,
+        bottom: f.y + h / 2,
+        cx: f.x,
+        cy: f.y,
+        w,
+        h
+      };
+    }
+
+    function pointInFrame(px, py, f) {
+      const m = computeMetrics(f);
+      const dx = px - f.x;
+      const dy = py - f.y;
+      const rad = -((f.rotation || 0) * Math.PI) / 180;
+      const lx = dx * Math.cos(rad) - dy * Math.sin(rad);
+      const ly = dx * Math.sin(rad) + dy * Math.cos(rad);
+      return Math.abs(lx) <= m.overallW / 2 && Math.abs(ly) <= m.overallH / 2;
+    }
+
+    function addHMeasure(overlay, x1, x2, y) {
+      const minX = Math.min(x1, x2);
+      const maxX = Math.max(x1, x2);
+      const dist = Math.round(maxX - minX);
+      if (dist <= 0) return;
+
+      const line = document.createElement('div');
+      line.className = 'measure-line-h';
+      line.style.left = `${minX * canvasScale}px`;
+      line.style.top = `${y * canvasScale}px`;
+      line.style.width = `${(maxX - minX) * canvasScale}px`;
+      overlay.appendChild(line);
+
+      const pill = document.createElement('div');
+      pill.className = 'measure-pill';
+      pill.textContent = `${dist}px`;
+      pill.style.left = `${((minX + maxX) / 2) * canvasScale}px`;
+      pill.style.top = `${y * canvasScale}px`;
+      overlay.appendChild(pill);
+    }
+
+    function addVMeasure(overlay, x, y1, y2) {
+      const minY = Math.min(y1, y2);
+      const maxY = Math.max(y1, y2);
+      const dist = Math.round(maxY - minY);
+      if (dist <= 0) return;
+
+      const line = document.createElement('div');
+      line.className = 'measure-line-v';
+      line.style.left = `${x * canvasScale}px`;
+      line.style.top = `${minY * canvasScale}px`;
+      line.style.height = `${(maxY - minY) * canvasScale}px`;
+      overlay.appendChild(line);
+
+      const pill = document.createElement('div');
+      pill.className = 'measure-pill';
+      pill.textContent = `${dist}px`;
+      pill.style.left = `${x * canvasScale}px`;
+      pill.style.top = `${((minY + maxY) / 2) * canvasScale}px`;
+      overlay.appendChild(pill);
+    }
+
+    function addExtH(overlay, x1, x2, y) {
+      const minX = Math.min(x1, x2);
+      const maxX = Math.max(x1, x2);
+      if (maxX - minX <= 0.5) return;
+      const ext = document.createElement('div');
+      ext.className = 'measure-ext-h';
+      ext.style.left = `${minX * canvasScale}px`;
+      ext.style.top = `${y * canvasScale}px`;
+      ext.style.width = `${(maxX - minX) * canvasScale}px`;
+      overlay.appendChild(ext);
+    }
+
+    function addExtV(overlay, x, y1, y2) {
+      const minY = Math.min(y1, y2);
+      const maxY = Math.max(y1, y2);
+      if (maxY - minY <= 0.5) return;
+      const ext = document.createElement('div');
+      ext.className = 'measure-ext-v';
+      ext.style.left = `${x * canvasScale}px`;
+      ext.style.top = `${minY * canvasScale}px`;
+      ext.style.height = `${(maxY - minY) * canvasScale}px`;
+      overlay.appendChild(ext);
+    }
+
+    function renderMeasureGuides() {
+      const overlay = document.getElementById('measure-overlay');
+      const canvas = document.getElementById('editor-canvas');
+      if (!overlay || !canvas) return;
+      overlay.innerHTML = '';
+
+      if (!isAltPressed || !lastPointer || !currentLayout || selectedSlotIdx === null || !currentLayout.frames[selectedSlotIdx]) {
+        return;
+      }
+
+      const rect = canvas.getBoundingClientRect();
+      const cw = currentLayout.intrinsicWidth || 2400;
+      const ch = currentLayout.intrinsicHeight || 2400;
+      const px = (lastPointer.clientX - rect.left) / canvasScale;
+      const py = (lastPointer.clientY - rect.top) / canvasScale;
+
+      if (px < 0 || py < 0 || px > cw || py > ch) return;
+
+      // Hit-test topmost frame under cursor
+      let hitIdx = -1;
+      for (let i = currentLayout.frames.length - 1; i >= 0; i--) {
+        if (pointInFrame(px, py, currentLayout.frames[i])) {
+          hitIdx = i;
+          break;
+        }
+      }
+
+      const sel = getFrameAABB(currentLayout.frames[selectedSlotIdx]);
+
+      // Hovering empty canvas or the selected frame itself -> measure to canvas edges
+      if (hitIdx === -1 || hitIdx === selectedSlotIdx) {
+        if (sel.top > 0) addVMeasure(overlay, sel.cx, 0, sel.top);
+        if (ch - sel.bottom > 0) addVMeasure(overlay, sel.cx, sel.bottom, ch);
+        if (sel.left > 0) addHMeasure(overlay, 0, sel.left, sel.cy);
+        if (cw - sel.right > 0) addHMeasure(overlay, sel.right, cw, sel.cy);
+        return;
+      }
+
+      // Hovering another device -> highlight target & measure gaps/edges
+      const tgt = getFrameAABB(currentLayout.frames[hitIdx]);
+      const box = document.createElement('div');
+      box.className = 'measure-target-box';
+      box.style.left = `${tgt.left * canvasScale}px`;
+      box.style.top = `${tgt.top * canvasScale}px`;
+      box.style.width = `${tgt.w * canvasScale}px`;
+      box.style.height = `${tgt.h * canvasScale}px`;
+      overlay.appendChild(box);
+
+      const yOverlapStart = Math.max(sel.top, tgt.top);
+      const yOverlapEnd = Math.min(sel.bottom, tgt.bottom);
+      const xOverlapStart = Math.max(sel.left, tgt.left);
+      const xOverlapEnd = Math.min(sel.right, tgt.right);
+      const hasYOverlap = yOverlapStart <= yOverlapEnd;
+      const hasXOverlap = xOverlapStart <= xOverlapEnd;
+
+      // Horizontal gap
+      if (sel.right < tgt.left || tgt.right < sel.left) {
+        const lineY = hasYOverlap ? (yOverlapStart + yOverlapEnd) / 2 : sel.cy;
+        const xFrom = sel.right < tgt.left ? sel.right : tgt.right;
+        const xTo = sel.right < tgt.left ? tgt.left : sel.left;
+        addHMeasure(overlay, xFrom, xTo, lineY);
+        if (!hasYOverlap) {
+          const tgtEdgeY = lineY < tgt.top ? tgt.top : tgt.bottom;
+          const extX = sel.right < tgt.left ? tgt.left : tgt.right;
+          addExtV(overlay, extX, lineY, tgtEdgeY);
+        }
+      }
+
+      // Vertical gap
+      if (sel.bottom < tgt.top || tgt.bottom < sel.top) {
+        const lineX = hasXOverlap ? (xOverlapStart + xOverlapEnd) / 2 : sel.cx;
+        const yFrom = sel.bottom < tgt.top ? sel.bottom : tgt.bottom;
+        const yTo = sel.bottom < tgt.top ? tgt.top : sel.top;
+        addVMeasure(overlay, lineX, yFrom, yTo);
+        if (!hasXOverlap) {
+          const tgtEdgeX = lineX < tgt.left ? tgt.left : tgt.right;
+          const extY = sel.bottom < tgt.top ? tgt.top : tgt.bottom;
+          addExtH(overlay, lineX, tgtEdgeX, extY);
+        }
+      }
+
+      // Overlapping on both axes -> show edge-to-edge distances
+      if (hasXOverlap && hasYOverlap) {
+        if (Math.abs(sel.left - tgt.left) >= 1) addHMeasure(overlay, sel.left, tgt.left, sel.cy);
+        if (Math.abs(sel.right - tgt.right) >= 1) addHMeasure(overlay, sel.right, tgt.right, sel.cy);
+        if (Math.abs(sel.top - tgt.top) >= 1) addVMeasure(overlay, sel.cx, sel.top, tgt.top);
+        if (Math.abs(sel.bottom - tgt.bottom) >= 1) addVMeasure(overlay, sel.cx, sel.bottom, tgt.bottom);
+      }
+    }
+
+    const editorCanvasEl = document.getElementById('editor-canvas');
+    editorCanvasEl.addEventListener('mousedown', () => {
+      selectedSlotIdx = null;
+      renderCanvas();
+      syncInspector();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      lastPointer = { clientX: e.clientX, clientY: e.clientY };
+      isAltPressed = e.altKey;
+      renderMeasureGuides();
+    });
+    editorCanvasEl.addEventListener('mouseleave', () => {
+      lastPointer = null;
+      renderMeasureGuides();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Alt' || e.altKey !== isAltPressed) {
+        isAltPressed = e.altKey;
+        renderMeasureGuides();
+      }
+
+      const tag = (document.activeElement?.tagName || '').toLowerCase();
+      const inInput = tag === 'input' || tag === 'textarea' || tag === 'select';
+
+      // Shortcuts (Undo/Redo, Copy/Paste, Zoom)
+      if (!inInput && (e.metaKey || e.ctrlKey)) {
+        const k = e.key.toLowerCase();
+        if (k === 'z' && !e.shiftKey) {
+          e.preventDefault();
+          undo();
+          return;
+        }
+        if ((k === 'z' && e.shiftKey) || (k === 'y' && e.ctrlKey)) {
+          e.preventDefault();
+          redo();
+          return;
+        }
+        if (k === 'c') {
+          e.preventDefault();
+          copySelectedFrame();
+          return;
+        }
+        if (k === 'v') {
+          e.preventDefault();
+          pasteFrame();
+          return;
+        }
+        if (k === '=' || k === '+') {
+          e.preventDefault();
+          setZoom(zoomFactor + 0.15);
+          return;
+        }
+        if (k === '-') {
+          e.preventDefault();
+          setZoom(zoomFactor - 0.15);
+          return;
+        }
+        if (k === '0') {
+          e.preventDefault();
+          setZoom(1);
+          return;
+        }
+      }
+
+      // Arrow-key nudging (1px default, 10px with Shift)
+      if (!inInput && currentLayout && selectedSlotIdx !== null && currentLayout.frames[selectedSlotIdx]) {
+        const step = e.shiftKey ? 10 : 1;
+        let dx = 0, dy = 0;
+        if (e.key === 'ArrowLeft') dx = -step;
+        else if (e.key === 'ArrowRight') dx = step;
+        else if (e.key === 'ArrowUp') dy = -step;
+        else if (e.key === 'ArrowDown') dy = step;
+        if (dx !== 0 || dy !== 0) {
+          e.preventDefault();
+          const f = currentLayout.frames[selectedSlotIdx];
+          f.x += dx;
+          f.y += dy;
+          renderCanvas();
+          syncInspector();
+          pushHistory();
+        }
+      }
+    });
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'Alt' || e.altKey !== isAltPressed) {
+        isAltPressed = e.altKey;
+        renderMeasureGuides();
+      }
+    });
+    window.addEventListener('blur', () => {
+      isAltPressed = false;
+      renderMeasureGuides();
+    });
+
+    document.getElementById('btn-zoom-out').onclick = () => setZoom(zoomFactor - 0.15);
+    document.getElementById('btn-zoom-in').onclick = () => setZoom(zoomFactor + 0.15);
+    document.getElementById('btn-zoom-reset').onclick = () => setZoom(1);
+    document.getElementById('btn-copy-frame').onclick = copySelectedFrame;
+    document.getElementById('btn-paste-frame').onclick = pasteFrame;
+    document.getElementById('stage-wrap').addEventListener('wheel', (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.1 : -0.1;
+        setZoom(zoomFactor + delta);
+      }
+    }, { passive: false });
 
     window.addEventListener('resize', renderCanvas);
     loadLayouts();

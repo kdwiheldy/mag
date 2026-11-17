@@ -1,0 +1,439 @@
+[
+  {
+    "id": "iphone-18-pro",
+    "name": "iPhone 18 Pro",
+    "kind": "phone",
+    "screenW": 1206,
+    "screenH": 2622,
+    "cornerRadiusFrac": 0.149,
+    "frameImage": "/bezels/iphone-18-pro.png",
+    "frameNativeW": 880,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 47,
+      "y": 45,
+      "w": 786,
+      "h": 1710
+    },
+    "bezelFrac": 0.032,
+    "accessories": []
+  },
+  {
+    "id": "iphone-18-pro-max",
+    "name": "iPhone 18 Pro Max",
+    "kind": "phone",
+    "screenW": 1320,
+    "screenH": 2867,
+    "cornerRadiusFrac": 0.145,
+    "frameImage": "/bezels/iphone-18-pro-max.png",
+    "frameNativeW": 882,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 45,
+      "y": 40,
+      "w": 792,
+      "h": 1720
+    },
+    "bezelFrac": 0.032,
+    "accessories": []
+  },
+  {
+    "id": "iphone-17-pro",
+    "name": "iPhone 17 Pro",
+    "kind": "phone",
+    "screenW": 1206,
+    "screenH": 2622,
+    "cornerRadiusFrac": 0.149,
+    "frameImage": "/bezels/iphone-17-pro.png",
+    "frameNativeW": 880,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 47,
+      "y": 45,
+      "w": 786,
+      "h": 1710
+    },
+    "bezelFrac": 0.032,
+    "accessories": []
+  },
+  {
+    "id": "iphone-17-pro-max",
+    "name": "iPhone 17 Pro Max",
+    "kind": "phone",
+    "screenW": 1320,
+    "screenH": 2867,
+    "cornerRadiusFrac": 0.145,
+    "frameImage": "/bezels/iphone-17-pro-max.png",
+    "frameNativeW": 882,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 45,
+      "y": 40,
+      "w": 792,
+      "h": 1720
+    },
+    "bezelFrac": 0.032,
+    "accessories": []
+  },
+  {
+    "id": "iphone-air",
+    "name": "iPhone Air",
+    "kind": "phone",
+    "screenW": 1262,
+    "screenH": 2736,
+    "cornerRadiusFrac": 0.145,
+    "frameImage": "/bezels/iphone-air.png",
+    "frameNativeW": 862,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 37,
+      "y": 45,
+      "w": 788,
+      "h": 1710
+    },
+    "bezelFrac": 0.032,
+    "accessories": []
+  },
+  {
+    "id": "iphone-16-pro",
+    "name": "iPhone 16 Pro",
+    "kind": "phone",
+    "screenW": 1206,
+    "screenH": 2622,
+    "cornerRadiusFrac": 0.149,
+    "frameImage": "/bezels/iphone-16-pro.png",
+    "frameNativeW": 880,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 47,
+      "y": 45,
+      "w": 786,
+      "h": 1710
+    },
+    "bezelFrac": 0.032,
+    "accessories": []
+  },
+  {
+    "id": "ipad-pro-m5-11-portrait",
+    "name": "iPad Pro 11\" (M5) Portrait",
+    "kind": "tablet",
+    "screenW": 1669,
+    "screenH": 2420,
+    "cornerRadiusFrac": 0.036,
+    "frameImage": "/bezels/ipad-pro-m5-11-portrait.png",
+    "frameNativeW": 1282,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 72,
+      "y": 75,
+      "w": 1138,
+      "h": 1650
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "ipad-pro-m5-11-landscape",
+    "name": "iPad Pro 11\" (M5) Landscape",
+    "kind": "tablet",
+    "screenW": 2420,
+    "screenH": 1669,
+    "cornerRadiusFrac": 0.025,
+    "frameImage": "/bezels/ipad-pro-m5-11-landscape.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1282,
+    "screenRect": {
+      "x": 75,
+      "y": 72,
+      "w": 1650,
+      "h": 1138
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "ipad-pro-m5-13-portrait",
+    "name": "iPad Pro 13\" (M5) Portrait",
+    "kind": "tablet",
+    "screenW": 2063,
+    "screenH": 2753,
+    "cornerRadiusFrac": 0.032,
+    "frameImage": "/bezels/ipad-pro-m5-13-portrait.png",
+    "frameNativeW": 1380,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 71,
+      "y": 74,
+      "w": 1238,
+      "h": 1652
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "ipad-pro-m5-13-landscape",
+    "name": "iPad Pro 13\" (M5) Landscape",
+    "kind": "tablet",
+    "screenW": 2753,
+    "screenH": 2063,
+    "cornerRadiusFrac": 0.024,
+    "frameImage": "/bezels/ipad-pro-m5-13-landscape.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1380,
+    "screenRect": {
+      "x": 74,
+      "y": 71,
+      "w": 1652,
+      "h": 1238
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "ipad-air-m4-11-portrait",
+    "name": "iPad Air 11\" (M4) Portrait",
+    "kind": "tablet",
+    "screenW": 1641,
+    "screenH": 2361,
+    "cornerRadiusFrac": 0.036,
+    "frameImage": "/bezels/ipad-air-m4-11-portrait.png",
+    "frameNativeW": 1305,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 89,
+      "y": 89,
+      "w": 1127,
+      "h": 1622
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "ipad-air-m4-11-landscape",
+    "name": "iPad Air 11\" (M4) Landscape",
+    "kind": "tablet",
+    "screenW": 2361,
+    "screenH": 1641,
+    "cornerRadiusFrac": 0.025,
+    "frameImage": "/bezels/ipad-air-m4-11-landscape.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1305,
+    "screenRect": {
+      "x": 89,
+      "y": 89,
+      "w": 1622,
+      "h": 1127
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "ipad-mini-portrait",
+    "name": "iPad mini Portrait",
+    "kind": "tablet",
+    "screenW": 1511,
+    "screenH": 2316,
+    "cornerRadiusFrac": 0.045,
+    "frameImage": "/bezels/ipad-mini-portrait.png",
+    "frameNativeW": 1238,
+    "frameNativeH": 1800,
+    "screenRect": {
+      "x": 91,
+      "y": 91,
+      "w": 1056,
+      "h": 1618
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "ipad-mini-landscape",
+    "name": "iPad mini Landscape",
+    "kind": "tablet",
+    "screenW": 2316,
+    "screenH": 1511,
+    "cornerRadiusFrac": 0.03,
+    "frameImage": "/bezels/ipad-mini-landscape.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1238,
+    "screenRect": {
+      "x": 91,
+      "y": 91,
+      "w": 1618,
+      "h": 1056
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "macbook-pro-m5-14",
+    "name": "MacBook Pro 14\" (M5)",
+    "kind": "laptop",
+    "screenW": 3024,
+    "screenH": 1965,
+    "cornerRadiusFrac": 0.015,
+    "frameImage": "/bezels/macbook-pro-m5-14.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1184,
+    "screenRect": {
+      "x": 195,
+      "y": 134,
+      "w": 1410,
+      "h": 916
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "macbook-pro-m5-16",
+    "name": "MacBook Pro 16\" (M5)",
+    "kind": "laptop",
+    "screenW": 3455,
+    "screenH": 2234,
+    "cornerRadiusFrac": 0.015,
+    "frameImage": "/bezels/macbook-pro-m5-16.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1200,
+    "screenRect": {
+      "x": 170,
+      "y": 128,
+      "w": 1460,
+      "h": 944
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "macbook-air-m5-13",
+    "name": "MacBook Air 13\" (M5)",
+    "kind": "laptop",
+    "screenW": 2561,
+    "screenH": 1666,
+    "cornerRadiusFrac": 0.015,
+    "frameImage": "/bezels/macbook-air-m5-13.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1186,
+    "screenRect": {
+      "x": 222,
+      "y": 152,
+      "w": 1356,
+      "h": 882
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "macbook-air-m5-15",
+    "name": "MacBook Air 15\" (M5)",
+    "kind": "laptop",
+    "screenW": 2881,
+    "screenH": 1863,
+    "cornerRadiusFrac": 0.015,
+    "frameImage": "/bezels/macbook-air-m5-15.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1169,
+    "screenRect": {
+      "x": 167,
+      "y": 111,
+      "w": 1465,
+      "h": 947
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "imac-m4-24",
+    "name": "iMac 24\" (M4)",
+    "kind": "desktop",
+    "screenW": 4480,
+    "screenH": 2519,
+    "cornerRadiusFrac": 0.0,
+    "frameImage": "/bezels/imac-m4-24.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1532,
+    "screenRect": {
+      "x": 53,
+      "y": 57,
+      "w": 1694,
+      "h": 953
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "studio-display",
+    "name": "Studio Display",
+    "kind": "desktop",
+    "screenW": 5118,
+    "screenH": 2879,
+    "cornerRadiusFrac": 0.0,
+    "frameImage": "/bezels/studio-display.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1387,
+    "screenRect": {
+      "x": 47,
+      "y": 47,
+      "w": 1706,
+      "h": 960
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "apple-watch-ultra-4",
+    "name": "Apple Watch Ultra 4",
+    "kind": "watch",
+    "screenW": 422,
+    "screenH": 514,
+    "cornerRadiusFrac": 0.22,
+    "frameImage": "/bezels/apple-watch-ultra-4.png",
+    "frameNativeW": 620,
+    "frameNativeH": 940,
+    "screenRect": {
+      "x": 99,
+      "y": 213,
+      "w": 422,
+      "h": 514
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "apple-watch-s11-46",
+    "name": "Apple Watch Series 11 46mm",
+    "kind": "watch",
+    "screenW": 416,
+    "screenH": 496,
+    "cornerRadiusFrac": 0.22,
+    "frameImage": "/bezels/apple-watch-s11-46.png",
+    "frameNativeW": 560,
+    "frameNativeH": 880,
+    "screenRect": {
+      "x": 72,
+      "y": 192,
+      "w": 416,
+      "h": 496
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  },
+  {
+    "id": "apple-tv-4k",
+    "name": "Apple TV 4K",
+    "kind": "tv",
+    "screenW": 3841,
+    "screenH": 2159,
+    "cornerRadiusFrac": 0.0,
+    "frameImage": "/bezels/apple-tv-4k.png",
+    "frameNativeW": 1800,
+    "frameNativeH": 1164,
+    "screenRect": {
+      "x": 43,
+      "y": 50,
+      "w": 1608,
+      "h": 904
+    },
+    "bezelFrac": 0.02,
+    "accessories": []
+  }
+]

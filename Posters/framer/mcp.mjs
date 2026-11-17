@@ -323,8 +323,20 @@ var DEVICES = devices;
 var DEVICE_MAP = Object.fromEntries(
   DEVICES.map((d) => [d.id, d])
 );
+function readDevicesStore() {
+  try {
+    const devPath = path3.resolve(path3.dirname(fileURLToPath(import.meta.url)), "devices.json");
+    if (fs3.existsSync(devPath)) {
+      const parsed = JSON.parse(fs3.readFileSync(devPath, "utf8"));
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {}
+  return [];
+}
+
 function getDevice(id) {
-  return DEVICE_MAP[id] ?? DEVICES[0];
+  const custom = readDevicesStore().find((d) => d.id === id);
+  return custom ?? DEVICE_MAP[id] ?? DEVICES[0];
 }
 
 // src/presets/layout-meta.ts
@@ -608,7 +620,8 @@ server.registerTool(
   async ({ spec, out }) => {
     const store = readLayoutsStore();
     const layout = store.find((l) => l.id === spec.layoutId) ?? store[0];
-    const enrichedSpec = { ...spec, customLayout: layout };
+    const customDevices = Object.fromEntries(readDevicesStore().map((d) => [d.id, d]));
+    const enrichedSpec = { ...spec, customLayout: layout, customDevices };
     const png = await composeToPng(enrichedSpec, { distDir: DIST_DIR });
     fs3.mkdirSync(path3.dirname(out), { recursive: true });
     fs3.writeFileSync(out, png);
